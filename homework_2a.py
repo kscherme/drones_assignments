@@ -41,6 +41,11 @@ def arm_and_takeoff(aTargetAltitude):
 		print(" Waiting for vehicle to initialize...")
 		time.sleep(1)
 
+	print("Arming motors")
+	# Copter should arm in GUIDED mode
+	vehicle.mode = VehicleMode("GUIDED")
+	vehicle.armed = True
+
 	# Confirm vehicle armed before attemption to take off
 	while not vehicle.armed:
 		print(" Waiting for arming...")
@@ -58,7 +63,7 @@ def arm_and_takeoff(aTargetAltitude):
 			break
 		time.sleep(1)
 
-def arm_and_takeoff(30)
+arm_and_takeoff(30)
 
 print("Set default/target airspeed to 10")
 vehicle.airspeed = 10
