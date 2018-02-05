@@ -72,6 +72,8 @@ f = open('coordinates.txt', 'r')
 
 for line in f:
 	line.split(',')
+	print(line[0])
+	print(line[1])
 	coord1 = float(line[0])
 	coord2 = float(line[1])
 	print(coord1)
