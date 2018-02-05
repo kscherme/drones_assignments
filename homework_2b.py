@@ -74,8 +74,10 @@ point1 = LocationGlobalRelative(41.71435,-86.24307, 15)
 vehicle.simple_goto(point1)
 
 # sleep so we can see the change in map
-time.sleep(20)
-print(vehicle.location.global_frame)
+# time.sleep(20)
+for i in xrange(20,0,-1):
+	time.sleep(1)
+	print(vehicle.location.global_frame)
 
 
 print("Going towards point for 10 seconds ...")
