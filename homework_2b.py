@@ -34,6 +34,9 @@ if not connection_string:
 print('Connecting to vehicle on: %s' % connection_string)
 vehicle = connect(connection_string, wait_ready=True)
 
+def location_callback(self, attr_name, msg):
+    print "Location (Global): ", msg
+
 def arm_and_takeoff(aTargetAltitude):
 
 	print("Basic pre-arm checks")
