@@ -34,10 +34,10 @@ if not connection_string:
 print('Connecting to vehicle on: %s' % connection_string)
 vehicle = connect(connection_string, wait_ready=True)
 
-def location_callback(self, attr_name, msg):
-    print("Location (Global): ", msg)
+# def location_callback(self, attr_name, msg):
+#     print("Location (Global): ", msg)
 
-vehicle.add_attribute_listener('global_frame', location_callback)
+# vehicle.add_attribute_listener('global_frame', location_callback)
 
 
 def arm_and_takeoff(aTargetAltitude):
@@ -80,11 +80,14 @@ point1 = LocationGlobalRelative(41.71435,-86.24307, 15)
 vehicle.simple_goto(point1)
 
 # sleep so we can see the change in map
-time.sleep(20)
-# for i in xrange(20,0,-1):
-# 	time.sleep(1)
-# 	loc_string = vehicle.location.global_frame
-# 	loc_string.split("=")
+#time.sleep(20)
+for i in xrange(20,0,-1):
+	time.sleep(1)
+	loc_string = vehicle.location.global_frame
+	loc_string.split("=")
+	coord1 = loc_string[1].split[","][0]
+	coord2 = loc_string[2].split[","][0]
+	print(coord1+","+coord2)
 
 
 print("Going towards point for 10 seconds ...")
