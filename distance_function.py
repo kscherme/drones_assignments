@@ -40,7 +40,7 @@ def get_circle_coords(center_lat, center_long):
 
 
 
-get_circle_coords(41.71480,-86.24200)
+get_circle_coords(41.71480,-86.24100)
 
 
 
