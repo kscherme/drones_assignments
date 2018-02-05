@@ -34,8 +34,11 @@ if not connection_string:
 print('Connecting to vehicle on: %s' % connection_string)
 vehicle = connect(connection_string, wait_ready=True)
 
-def location_callback(self, attr_name, value):
-    print("Location (Global): ", vehicle.location.global_frame)
+def location_callback(self, attr_name, msg):
+    print("Location (Global): ", msg)
+
+vehicle.add_attribute_listener('global_frame', location_callback)
+
 
 def arm_and_takeoff(aTargetAltitude):
 
@@ -68,7 +71,6 @@ def arm_and_takeoff(aTargetAltitude):
 		time.sleep(1)
 
 arm_and_takeoff(15)
-vehicle.add_attribute_listener('global_frame', location_callback)
 
 print("Set default/target airspeed to 10")
 vehicle.airspeed = 10
