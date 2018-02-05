@@ -69,23 +69,41 @@ print("Set default/target airspeed to 10")
 vehicle.airspeed = 10
 
 with open('coordinates.txt') as f:
-	lines = f.readlines()
+	line = f.readline()
+	while line:
+		line.split(',')
+		print(line[0])
+		print(line[1])
+		coord1 = float(line[0])
+		coord2 = float(line[1])
+		print(coord1)
+		print(coord2)
 
-for line in lines:
-	line.split(',')
-	print(line[0])
-	print(line[1])
-	coord1 = float(line[0])
-	coord2 = float(line[1])
-	print(coord1)
-	print(coord2)
+		print("Going towards first point for 5 seconds ...")
+		point1 = LocationGlobalRelative(coord1,coord2, 15)
+		vehicle.simple_goto(point1)
 
-	print("Going towards first point for 5 seconds ...")
-	point1 = LocationGlobalRelative(coord1,coord2, 15)
-	vehicle.simple_goto(point1)
+		# sleep so we can see the change in map
+		time.sleep(10)
+		line = f.readline()
 
-	# sleep so we can see the change in map
-	time.sleep(10)
+
+
+# for line in lines:
+# 	line.split(',')
+# 	print(line[0])
+# 	print(line[1])
+# 	coord1 = float(line[0])
+# 	coord2 = float(line[1])
+# 	print(coord1)
+# 	print(coord2)
+
+# 	print("Going towards first point for 5 seconds ...")
+# 	point1 = LocationGlobalRelative(coord1,coord2, 15)
+# 	vehicle.simple_goto(point1)
+
+# 	# sleep so we can see the change in map
+# 	time.sleep(10)
 
 f.close()
 
