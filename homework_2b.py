@@ -87,7 +87,7 @@ for i in xrange(20,0,-1):
 	time.sleep(1)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
-	f.write("\n\n %,%",loc_obj.lat,loc_obj.long)
+	f.write("\n\n %,%",loc_obj.lat,loc_obj.lon)
 	# loc_string.split("=")
 	# coord1 = loc_string[1].split[","][0]
 	# coord2 = loc_string[2].split[","][0]
