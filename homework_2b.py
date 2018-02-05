@@ -144,7 +144,7 @@ point9 = LocationGlobalRelative(41.71480,-86.24257, 15)
 vehicle.simple_goto(point9, groundspeed=10)
 
 # sleep so we can see the change in map
-time.sleep(3)
+time.sleep(10)
 
 print("Going towards second point for 5 seconds (groundspeed set to 10 m/s) ...")
 point9 = LocationGlobalRelative(41.71476,-86.24256, 15)
@@ -207,7 +207,7 @@ point9 = LocationGlobalRelative(41.71480,-86.24207, 15)
 vehicle.simple_goto(point9, groundspeed=10)
 
 # sleep so we can see the change in map
-time.sleep(3)
+time.sleep(10)
 
 print("Going towards second point for 5 seconds (groundspeed set to 10 m/s) ...")
 point9 = LocationGlobalRelative(41.71484,-86.24206, 15)
@@ -270,7 +270,7 @@ point9 = LocationGlobalRelative(41.71480,-86.24157, 15)
 vehicle.simple_goto(point9, groundspeed=10)
 
 # sleep so we can see the change in map
-time.sleep(3)
+time.sleep(10)
 
 print("Going towards second point for 5 seconds (groundspeed set to 10 m/s) ...")
 point9 = LocationGlobalRelative(41.71476,-86.24156, 15)
@@ -333,7 +333,7 @@ point9 = LocationGlobalRelative(41.71480,-86.24107, 15)
 vehicle.simple_goto(point9, groundspeed=10)
 
 # sleep so we can see the change in map
-time.sleep(3)
+time.sleep(10)
 
 print("Going towards second point for 5 seconds (groundspeed set to 10 m/s) ...")
 point9 = LocationGlobalRelative(41.71484,-86.24106, 15)
