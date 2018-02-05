@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+# Katie Schermerhorn
 
 '''
 Write a program so that your drone starts close to the center of the flying field,
@@ -68,15 +69,16 @@ arm_and_takeoff(15)
 print("Set default/target airspeed to 10")
 vehicle.airspeed = 10
 
-print("Going towards first point for 5 seconds ...")
+print("Going towards point for 20 seconds ...")
 point1 = LocationGlobalRelative(41.71435,-86.24307, 15)
 vehicle.simple_goto(point1)
 
 # sleep so we can see the change in map
 time.sleep(20)
+print(vehicle.location.global_frame)
 
 
-print("Going towards first point for 5 seconds ...")
+print("Going towards point for 10 seconds ...")
 point1 = LocationGlobalRelative(41.71480,-86.24307, 15)
 vehicle.simple_goto(point1)
 
