@@ -72,8 +72,10 @@ f = open('coordinates.txt', 'r')
 
 for line in f:
 	line.split(',')
-	coord1 = line[0]
-	coord2 = line[1]
+	coord1 = (float)line[0]
+	coord2 = (float)line[1]
+	print coord1
+	print coord2
 
 	print("Going towards first point for 5 seconds ...")
 	point1 = LocationGlobalRelative(coord1,coord2, 15)
