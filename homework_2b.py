@@ -68,9 +68,10 @@ arm_and_takeoff(15)
 print("Set default/target airspeed to 10")
 vehicle.airspeed = 10
 
-f = open('coordinates.txt', 'r')
+with open('coordinates.txt') as f:
+	lines = f.readlines()
 
-for line in f:
+for line in lines:
 	line.split(',')
 	print(line[0])
 	print(line[1])
