@@ -65,6 +65,7 @@ def arm_and_takeoff(aTargetAltitude):
 		time.sleep(1)
 
 arm_and_takeoff(15)
+vehicle.add_attribute_listener('global_frame', location_callback)
 
 print("Set default/target airspeed to 10")
 vehicle.airspeed = 10
@@ -74,10 +75,11 @@ point1 = LocationGlobalRelative(41.71435,-86.24307, 15)
 vehicle.simple_goto(point1)
 
 # sleep so we can see the change in map
-# time.sleep(20)
-for i in xrange(20,0,-1):
-	time.sleep(1)
-	print(vehicle.location.global_frame)
+time.sleep(20)
+# for i in xrange(20,0,-1):
+# 	time.sleep(1)
+# 	loc_string = vehicle.location.global_frame
+# 	loc_string.split("=")
 
 
 print("Going towards point for 10 seconds ...")
