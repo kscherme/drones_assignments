@@ -83,11 +83,12 @@ vehicle.simple_goto(point1)
 #time.sleep(20)
 for i in xrange(20,0,-1):
 	time.sleep(1)
-	loc_string = vehicle.location.global_frame
-	loc_string.split("=")
-	coord1 = loc_string[1].split[","][0]
-	coord2 = loc_string[2].split[","][0]
-	print(coord1+","+coord2)
+	loc_obj = vehicle.location.global_frame
+	print(loc_obj.lat)
+	# loc_string.split("=")
+	# coord1 = loc_string[1].split[","][0]
+	# coord2 = loc_string[2].split[","][0]
+	# print(coord1+","+coord2)
 
 
 print("Going towards point for 10 seconds ...")
