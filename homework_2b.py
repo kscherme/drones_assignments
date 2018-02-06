@@ -99,7 +99,7 @@ vehicle.simple_goto(point1)
 
 # sleep so we can see the change in map
 for i in xrange(10,0,-1):
-	time.sleep(10)
+	time.sleep(1)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
 	print(",")
@@ -113,7 +113,7 @@ vehicle.simple_goto(point2, groundspeed=10)
 
 # sleep so we can see the change in map
 for i in xrange(3,0,-1):
-	time.sleep(3)
+	time.sleep(1)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
 	print(",")
@@ -127,7 +127,7 @@ vehicle.simple_goto(point3, groundspeed=10)
 
 # sleep so we can see the change in map
 for i in xrange(3,0,-1):
-	time.sleep(3)
+	time.sleep(1)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
 	print(",")
@@ -141,7 +141,7 @@ vehicle.simple_goto(point4, groundspeed=10)
 
 # sleep so we can see the change in map
 for i in xrange(3,0,-1):
-	time.sleep(3)
+	time.sleep(1)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
 	print(",")
@@ -155,7 +155,7 @@ vehicle.simple_goto(point5, groundspeed=10)
 
 # sleep so we can see the change in map
 for i in xrange(3,0,-1):
-	time.sleep(3)
+	time.sleep(1)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
 	print(",")
@@ -169,7 +169,7 @@ vehicle.simple_goto(point6, groundspeed=10)
 
 # sleep so we can see the change in map
 for i in xrange(3,0,-1):
-	time.sleep(3)
+	time.sleep(1)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
 	print(",")
@@ -183,7 +183,7 @@ vehicle.simple_goto(point7, groundspeed=10)
 
 # sleep so we can see the change in map
 for i in xrange(3,0,-1):
-	time.sleep(3)
+	time.sleep(1)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
 	print(",")
@@ -197,7 +197,7 @@ vehicle.simple_goto(point8, groundspeed=10)
 
 # sleep so we can see the change in map
 for i in xrange(3,0,-1):
-	time.sleep(3)
+	time.sleep(1)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
 	print(",")
@@ -211,7 +211,7 @@ vehicle.simple_goto(point9, groundspeed=10)
 
 # sleep so we can see the change in map
 for i in xrange(3,0,-1):
-	time.sleep(3)
+	time.sleep(1)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
 	print(",")
@@ -225,7 +225,7 @@ vehicle.simple_goto(point9, groundspeed=10)
 
 # sleep so we can see the change in map
 for i in xrange(10,0,-1):
-	time.sleep(10)
+	time.sleep(1)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
 	print(",")
@@ -239,7 +239,7 @@ vehicle.simple_goto(point9, groundspeed=10)
 
 # sleep so we can see the change in map
 for i in xrange(3,0,-1):
-	time.sleep(3)
+	time.sleep(1)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
 	print(",")
@@ -253,7 +253,7 @@ vehicle.simple_goto(point9, groundspeed=10)
 
 # sleep so we can see the change in map
 for i in xrange(3,0,-1):
-	time.sleep(3)
+	time.sleep(1)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
 	print(",")
@@ -267,7 +267,7 @@ vehicle.simple_goto(point9, groundspeed=10)
 
 # sleep so we can see the change in map
 for i in xrange(3,0,-1):
-	time.sleep(3)
+	time.sleep(1)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
 	print(",")
@@ -281,7 +281,7 @@ vehicle.simple_goto(point9, groundspeed=10)
 
 # sleep so we can see the change in map
 for i in xrange(3,0,-1):
-	time.sleep(3)
+	time.sleep(1)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
 	print(",")
@@ -295,7 +295,7 @@ vehicle.simple_goto(point9, groundspeed=10)
 
 # sleep so we can see the change in map
 for i in xrange(3,0,-1):
-	time.sleep(3)
+	time.sleep(1)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
 	print(",")
@@ -309,7 +309,7 @@ vehicle.simple_goto(point9, groundspeed=10)
 
 # sleep so we can see the change in map
 for i in xrange(3,0,-1):
-	time.sleep(3)
+	time.sleep(1)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
 	print(",")
@@ -323,7 +323,7 @@ vehicle.simple_goto(point9, groundspeed=10)
 
 # sleep so we can see the change in map
 for i in xrange(3,0,-1):
-	time.sleep(3)
+	time.sleep(1)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
 	print(",")
@@ -337,7 +337,7 @@ vehicle.simple_goto(point9, groundspeed=10)
 
 # sleep so we can see the change in map
 for i in xrange(3,0,-1):
-	time.sleep(3)
+	time.sleep(1)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
 	print(",")
@@ -351,7 +351,7 @@ vehicle.simple_goto(point9, groundspeed=10)
 
 # sleep so we can see the change in map
 for i in xrange(10,0,-1):
-	time.sleep(10)
+	time.sleep(1)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
 	print(",")
@@ -365,7 +365,7 @@ vehicle.simple_goto(point9, groundspeed=10)
 
 # sleep so we can see the change in map
 for i in xrange(3,0,-1):
-	time.sleep(3)
+	time.sleep(1)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
 	print(",")
@@ -379,7 +379,7 @@ vehicle.simple_goto(point9, groundspeed=10)
 
 # sleep so we can see the change in map
 for i in xrange(3,0,-1):
-	time.sleep(3)
+	time.sleep(1)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
 	print(",")
@@ -393,7 +393,7 @@ vehicle.simple_goto(point9, groundspeed=10)
 
 # sleep so we can see the change in map
 for i in xrange(3,0,-1):
-	time.sleep(3)
+	time.sleep(1)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
 	print(",")
@@ -407,7 +407,7 @@ vehicle.simple_goto(point9, groundspeed=10)
 
 # sleep so we can see the change in map
 for i in xrange(3,0,-1):
-	time.sleep(3)
+	time.sleep(1)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
 	print(",")
@@ -421,7 +421,7 @@ vehicle.simple_goto(point9, groundspeed=10)
 
 # sleep so we can see the change in map
 for i in xrange(3,0,-1):
-	time.sleep(3)
+	time.sleep(1)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
 	print(",")
@@ -435,7 +435,7 @@ vehicle.simple_goto(point9, groundspeed=10)
 
 # sleep so we can see the change in map
 for i in xrange(3,0,-1):
-	time.sleep(3)
+	time.sleep(1)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
 	print(",")
@@ -449,7 +449,7 @@ vehicle.simple_goto(point9, groundspeed=10)
 
 # sleep so we can see the change in map
 for i in xrange(3,0,-1):
-	time.sleep(3)
+	time.sleep(1)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
 	print(",")
@@ -463,7 +463,7 @@ vehicle.simple_goto(point9, groundspeed=10)
 
 # sleep so we can see the change in map
 for i in xrange(3,0,-1):
-	time.sleep(3)
+	time.sleep(1)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
 	print(",")
@@ -477,7 +477,7 @@ vehicle.simple_goto(point9, groundspeed=10)
 
 # sleep so we can see the change in map
 for i in xrange(10,0,-1):
-	time.sleep(10)
+	time.sleep(1)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
 	print(",")
@@ -491,7 +491,7 @@ vehicle.simple_goto(point9, groundspeed=10)
 
 # sleep so we can see the change in map
 for i in xrange(3,0,-1):
-	time.sleep(3)
+	time.sleep(1)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
 	print(",")
@@ -505,7 +505,7 @@ vehicle.simple_goto(point9, groundspeed=10)
 
 # sleep so we can see the change in map
 for i in xrange(3,0,-1):
-	time.sleep(3)
+	time.sleep(1)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
 	print(",")
@@ -519,7 +519,7 @@ vehicle.simple_goto(point9, groundspeed=10)
 
 # sleep so we can see the change in map
 for i in xrange(3,0,-1):
-	time.sleep(3)
+	time.sleep(1)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
 	print(",")
@@ -533,7 +533,7 @@ vehicle.simple_goto(point9, groundspeed=10)
 
 # sleep so we can see the change in map
 for i in xrange(3,0,-1):
-	time.sleep(3)
+	time.sleep(1)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
 	print(",")
@@ -547,7 +547,7 @@ vehicle.simple_goto(point9, groundspeed=10)
 
 # sleep so we can see the change in map
 for i in xrange(3,0,-1):
-	time.sleep(3)
+	time.sleep(1)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
 	print(",")
@@ -561,7 +561,7 @@ vehicle.simple_goto(point9, groundspeed=10)
 
 # sleep so we can see the change in map
 for i in xrange(3,0,-1):
-	time.sleep(3)
+	time.sleep(1)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
 	print(",")
@@ -575,7 +575,7 @@ vehicle.simple_goto(point9, groundspeed=10)
 
 # sleep so we can see the change in map
 for i in xrange(3,0,-1):
-	time.sleep(3)
+	time.sleep(1)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
 	print(",")
@@ -589,7 +589,7 @@ vehicle.simple_goto(point9, groundspeed=10)
 
 # sleep so we can see the change in map
 for i in xrange(3,0,-1):
-	time.sleep(3)
+	time.sleep(1)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
 	print(",")
@@ -603,7 +603,7 @@ vehicle.simple_goto(point9, groundspeed=10)
 
 # sleep so we can see the change in map
 for i in xrange(10,0,-1):
-	time.sleep(10)
+	time.sleep(1)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
 	print(",")
@@ -617,7 +617,7 @@ vehicle.simple_goto(point9, groundspeed=10)
 
 # sleep so we can see the change in map
 for i in xrange(3,0,-1):
-	time.sleep(3)
+	time.sleep(1)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
 	print(",")
@@ -631,7 +631,7 @@ vehicle.simple_goto(point9, groundspeed=10)
 
 # sleep so we can see the change in map
 for i in xrange(3,0,-1):
-	time.sleep(3)
+	time.sleep(1)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
 	print(",")
@@ -645,7 +645,7 @@ vehicle.simple_goto(point9, groundspeed=10)
 
 # sleep so we can see the change in map
 for i in xrange(3,0,-1):
-	time.sleep(3)
+	time.sleep(1)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
 	print(",")
@@ -659,7 +659,7 @@ vehicle.simple_goto(point9, groundspeed=10)
 
 # sleep so we can see the change in map
 for i in xrange(3,0,-1):
-	time.sleep(3)
+	time.sleep(1)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
 	print(",")
@@ -673,7 +673,7 @@ vehicle.simple_goto(point9, groundspeed=10)
 
 # sleep so we can see the change in map
 for i in xrange(3,0,-1):
-	time.sleep(3)
+	time.sleep(1)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
 	print(",")
@@ -687,7 +687,7 @@ vehicle.simple_goto(point9, groundspeed=10)
 
 # sleep so we can see the change in map
 for i in xrange(3,0,-1):
-	time.sleep(3)
+	time.sleep(1)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
 	print(",")
@@ -701,7 +701,7 @@ vehicle.simple_goto(point9, groundspeed=10)
 
 # sleep so we can see the change in map
 for i in xrange(3,0,-1):
-	time.sleep(3)
+	time.sleep(1)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
 	print(",")
@@ -715,7 +715,7 @@ vehicle.simple_goto(point9, groundspeed=10)
 
 # sleep so we can see the change in map
 for i in xrange(3,0,-1):
-	time.sleep(3)
+	time.sleep(1)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
 	print(",")
@@ -729,7 +729,7 @@ vehicle.simple_goto(point1)
 
 # sleep so we can see the change in map
 for i in xrange(10,0,-1):
-	time.sleep(10)
+	time.sleep(1)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
 	print(",")
