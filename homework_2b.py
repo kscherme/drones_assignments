@@ -87,6 +87,8 @@ for i in xrange(20,0,-1):
 	time.sleep(1)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
+	print(",")
+	print(loc_obj.lon)
 	f.write("\n%f," % loc_obj.lat)
 	f.write("%f" % loc_obj.lon)
 
@@ -100,6 +102,8 @@ for i in xrange(10,0,-1):
 	time.sleep(10)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
+	print(",")
+	print(loc_obj.lon)
 	f.write("\n%f," % loc_obj.lat)
 	f.write("%f" % loc_obj.lon)
 
@@ -112,6 +116,8 @@ for i in xrange(3,0,-1):
 	time.sleep(3)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
+	print(",")
+	print(loc_obj.lon)
 	f.write("\n%f," % loc_obj.lat)
 	f.write("%f" % loc_obj.lon)
 
@@ -124,6 +130,8 @@ for i in xrange(3,0,-1):
 	time.sleep(3)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
+	print(",")
+	print(loc_obj.lon)
 	f.write("\n%f," % loc_obj.lat)
 	f.write("%f" % loc_obj.lon)
 
@@ -136,6 +144,8 @@ for i in xrange(3,0,-1):
 	time.sleep(3)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
+	print(",")
+	print(loc_obj.lon)
 	f.write("\n%f," % loc_obj.lat)
 	f.write("%f" % loc_obj.lon)
 
@@ -148,6 +158,8 @@ for i in xrange(3,0,-1):
 	time.sleep(3)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
+	print(",")
+	print(loc_obj.lon)
 	f.write("\n%f," % loc_obj.lat)
 	f.write("%f" % loc_obj.lon)
 
@@ -160,6 +172,8 @@ for i in xrange(3,0,-1):
 	time.sleep(3)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
+	print(",")
+	print(loc_obj.lon)
 	f.write("\n%f," % loc_obj.lat)
 	f.write("%f" % loc_obj.lon)
 
@@ -172,6 +186,8 @@ for i in xrange(3,0,-1):
 	time.sleep(3)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
+	print(",")
+	print(loc_obj.lon)
 	f.write("\n%f," % loc_obj.lat)
 	f.write("%f" % loc_obj.lon)
 
@@ -184,6 +200,8 @@ for i in xrange(3,0,-1):
 	time.sleep(3)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
+	print(",")
+	print(loc_obj.lon)
 	f.write("\n%f," % loc_obj.lat)
 	f.write("%f" % loc_obj.lon)
 
@@ -196,6 +214,8 @@ for i in xrange(3,0,-1):
 	time.sleep(3)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
+	print(",")
+	print(loc_obj.lon)
 	f.write("\n%f," % loc_obj.lat)
 	f.write("%f" % loc_obj.lon)
 
@@ -208,6 +228,8 @@ for i in xrange(10,0,-1):
 	time.sleep(10)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
+	print(",")
+	print(loc_obj.lon)
 	f.write("\n%f," % loc_obj.lat)
 	f.write("%f" % loc_obj.lon)
 
@@ -220,6 +242,8 @@ for i in xrange(3,0,-1):
 	time.sleep(3)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
+	print(",")
+	print(loc_obj.lon)
 	f.write("\n%f," % loc_obj.lat)
 	f.write("%f" % loc_obj.lon)
 
@@ -232,6 +256,8 @@ for i in xrange(3,0,-1):
 	time.sleep(3)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
+	print(",")
+	print(loc_obj.lon)
 	f.write("\n%f," % loc_obj.lat)
 	f.write("%f" % loc_obj.lon)
 
@@ -244,6 +270,8 @@ for i in xrange(3,0,-1):
 	time.sleep(3)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
+	print(",")
+	print(loc_obj.lon)
 	f.write("\n%f," % loc_obj.lat)
 	f.write("%f" % loc_obj.lon)
 
@@ -256,6 +284,8 @@ for i in xrange(3,0,-1):
 	time.sleep(3)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
+	print(",")
+	print(loc_obj.lon)
 	f.write("\n%f," % loc_obj.lat)
 	f.write("%f" % loc_obj.lon)
 
@@ -268,6 +298,8 @@ for i in xrange(3,0,-1):
 	time.sleep(3)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
+	print(",")
+	print(loc_obj.lon)
 	f.write("\n%f," % loc_obj.lat)
 	f.write("%f" % loc_obj.lon)
 
@@ -280,6 +312,8 @@ for i in xrange(3,0,-1):
 	time.sleep(3)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
+	print(",")
+	print(loc_obj.lon)
 	f.write("\n%f," % loc_obj.lat)
 	f.write("%f" % loc_obj.lon)
 
@@ -292,6 +326,8 @@ for i in xrange(3,0,-1):
 	time.sleep(3)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
+	print(",")
+	print(loc_obj.lon)
 	f.write("\n%f," % loc_obj.lat)
 	f.write("%f" % loc_obj.lon)
 
@@ -304,6 +340,8 @@ for i in xrange(3,0,-1):
 	time.sleep(3)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
+	print(",")
+	print(loc_obj.lon)
 	f.write("\n%f," % loc_obj.lat)
 	f.write("%f" % loc_obj.lon)
 
@@ -316,6 +354,8 @@ for i in xrange(10,0,-1):
 	time.sleep(10)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
+	print(",")
+	print(loc_obj.lon)
 	f.write("\n%f," % loc_obj.lat)
 	f.write("%f" % loc_obj.lon)
 
@@ -328,6 +368,8 @@ for i in xrange(3,0,-1):
 	time.sleep(3)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
+	print(",")
+	print(loc_obj.lon)
 	f.write("\n%f," % loc_obj.lat)
 	f.write("%f" % loc_obj.lon)
 
@@ -340,6 +382,8 @@ for i in xrange(3,0,-1):
 	time.sleep(3)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
+	print(",")
+	print(loc_obj.lon)
 	f.write("\n%f," % loc_obj.lat)
 	f.write("%f" % loc_obj.lon)
 
@@ -352,6 +396,8 @@ for i in xrange(3,0,-1):
 	time.sleep(3)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
+	print(",")
+	print(loc_obj.lon)
 	f.write("\n%f," % loc_obj.lat)
 	f.write("%f" % loc_obj.lon)
 
@@ -364,6 +410,8 @@ for i in xrange(3,0,-1):
 	time.sleep(3)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
+	print(",")
+	print(loc_obj.lon)
 	f.write("\n%f," % loc_obj.lat)
 	f.write("%f" % loc_obj.lon)
 
@@ -376,6 +424,8 @@ for i in xrange(3,0,-1):
 	time.sleep(3)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
+	print(",")
+	print(loc_obj.lon)
 	f.write("\n%f," % loc_obj.lat)
 	f.write("%f" % loc_obj.lon)
 
@@ -388,6 +438,8 @@ for i in xrange(3,0,-1):
 	time.sleep(3)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
+	print(",")
+	print(loc_obj.lon)
 	f.write("\n%f," % loc_obj.lat)
 	f.write("%f" % loc_obj.lon)
 
@@ -400,6 +452,8 @@ for i in xrange(3,0,-1):
 	time.sleep(3)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
+	print(",")
+	print(loc_obj.lon)
 	f.write("\n%f," % loc_obj.lat)
 	f.write("%f" % loc_obj.lon)
 
@@ -412,6 +466,8 @@ for i in xrange(3,0,-1):
 	time.sleep(3)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
+	print(",")
+	print(loc_obj.lon)
 	f.write("\n%f," % loc_obj.lat)
 	f.write("%f" % loc_obj.lon)
 
@@ -424,6 +480,8 @@ for i in xrange(10,0,-1):
 	time.sleep(10)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
+	print(",")
+	print(loc_obj.lon)
 	f.write("\n%f," % loc_obj.lat)
 	f.write("%f" % loc_obj.lon)
 
@@ -436,6 +494,8 @@ for i in xrange(3,0,-1):
 	time.sleep(3)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
+	print(",")
+	print(loc_obj.lon)
 	f.write("\n%f," % loc_obj.lat)
 	f.write("%f" % loc_obj.lon)
 
@@ -448,6 +508,8 @@ for i in xrange(3,0,-1):
 	time.sleep(3)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
+	print(",")
+	print(loc_obj.lon)
 	f.write("\n%f," % loc_obj.lat)
 	f.write("%f" % loc_obj.lon)
 
@@ -460,6 +522,8 @@ for i in xrange(3,0,-1):
 	time.sleep(3)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
+	print(",")
+	print(loc_obj.lon)
 	f.write("\n%f," % loc_obj.lat)
 	f.write("%f" % loc_obj.lon)
 
@@ -472,6 +536,8 @@ for i in xrange(3,0,-1):
 	time.sleep(3)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
+	print(",")
+	print(loc_obj.lon)
 	f.write("\n%f," % loc_obj.lat)
 	f.write("%f" % loc_obj.lon)
 
@@ -484,6 +550,8 @@ for i in xrange(3,0,-1):
 	time.sleep(3)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
+	print(",")
+	print(loc_obj.lon)
 	f.write("\n%f," % loc_obj.lat)
 	f.write("%f" % loc_obj.lon)
 
@@ -496,6 +564,8 @@ for i in xrange(3,0,-1):
 	time.sleep(3)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
+	print(",")
+	print(loc_obj.lon)
 	f.write("\n%f," % loc_obj.lat)
 	f.write("%f" % loc_obj.lon)
 
@@ -508,6 +578,8 @@ for i in xrange(3,0,-1):
 	time.sleep(3)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
+	print(",")
+	print(loc_obj.lon)
 	f.write("\n%f," % loc_obj.lat)
 	f.write("%f" % loc_obj.lon)
 
@@ -520,6 +592,8 @@ for i in xrange(3,0,-1):
 	time.sleep(3)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
+	print(",")
+	print(loc_obj.lon)
 	f.write("\n%f," % loc_obj.lat)
 	f.write("%f" % loc_obj.lon)
 
@@ -532,6 +606,8 @@ for i in xrange(10,0,-1):
 	time.sleep(10)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
+	print(",")
+	print(loc_obj.lon)
 	f.write("\n%f," % loc_obj.lat)
 	f.write("%f" % loc_obj.lon)
 
@@ -544,6 +620,8 @@ for i in xrange(3,0,-1):
 	time.sleep(3)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
+	print(",")
+	print(loc_obj.lon)
 	f.write("\n%f," % loc_obj.lat)
 	f.write("%f" % loc_obj.lon)
 
@@ -556,6 +634,8 @@ for i in xrange(3,0,-1):
 	time.sleep(3)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
+	print(",")
+	print(loc_obj.lon)
 	f.write("\n%f," % loc_obj.lat)
 	f.write("%f" % loc_obj.lon)
 
@@ -568,6 +648,8 @@ for i in xrange(3,0,-1):
 	time.sleep(3)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
+	print(",")
+	print(loc_obj.lon)
 	f.write("\n%f," % loc_obj.lat)
 	f.write("%f" % loc_obj.lon)
 
@@ -580,6 +662,8 @@ for i in xrange(3,0,-1):
 	time.sleep(3)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
+	print(",")
+	print(loc_obj.lon)
 	f.write("\n%f," % loc_obj.lat)
 	f.write("%f" % loc_obj.lon)
 
@@ -592,6 +676,8 @@ for i in xrange(3,0,-1):
 	time.sleep(3)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
+	print(",")
+	print(loc_obj.lon)
 	f.write("\n%f," % loc_obj.lat)
 	f.write("%f" % loc_obj.lon)
 
@@ -604,6 +690,8 @@ for i in xrange(3,0,-1):
 	time.sleep(3)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
+	print(",")
+	print(loc_obj.lon)
 	f.write("\n%f," % loc_obj.lat)
 	f.write("%f" % loc_obj.lon)
 
@@ -616,6 +704,8 @@ for i in xrange(3,0,-1):
 	time.sleep(3)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
+	print(",")
+	print(loc_obj.lon)
 	f.write("\n%f," % loc_obj.lat)
 	f.write("%f" % loc_obj.lon)
 
@@ -628,6 +718,8 @@ for i in xrange(3,0,-1):
 	time.sleep(3)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
+	print(",")
+	print(loc_obj.lon)
 	f.write("\n%f," % loc_obj.lat)
 	f.write("%f" % loc_obj.lon)
 
@@ -640,8 +732,12 @@ for i in xrange(10,0,-1):
 	time.sleep(10)
 	loc_obj = vehicle.location.global_frame
 	print(loc_obj.lat)
+	print(",")
+	print(loc_obj.lon)
 	f.write("\n%f," % loc_obj.lat)
 	f.write("%f" % loc_obj.lon)
+
+f.close()
 
 
 
