@@ -215,7 +215,7 @@ class DroneHandshakeMessage():
 
 		message = {
 				"type": self.m_type,
-				"uavid": self.vid,
+				"uavid": str(self.vid),
 				"sendtimestamp": long(round(time.time()*1000)),
 				"data": {
 					'yyy': "more params...",
@@ -247,7 +247,7 @@ class StateMessage():
 
 		message = {
 				"type": self.m_type,
-				"uavid": self.vid,
+				"uavid": str(self.vid),
 				"sendtimestamp": long(round(time.time()*1000)),
 				"data": {
 		            'location': {'x': lla.lat, 'y': lla.lon, 'z': lla.alt},
