@@ -114,10 +114,23 @@ class ControlStation:
 	def to_d_work(self):
 		cont = True
 		while cont:
-			in_msgs = self.state_to_dronology_msgs.get_messages()
-			for msg in in_msgs:
+			messages = self.state_to_dronology_msgs.get_messages()
+			for msg in messages:
 				print "to dronology:"
 				print msg
+				success = self.conn.send(str(msg))
+				if not success:
+					self.state_to_dronology_msgs.put_message(msg)
+
+			messages = self.handshake_to_dronology_msgs.get_messages()
+			for msg in messages:
+				print "to dronology:"
+				print msg
+				success = self.conn.send(str(msg))
+				if not success:
+					self.handshake_to_dronology_msgs.put_message(msg)
+
+			time.sleep(.1)
 
 	def register_vehicle(self, v_spec):
 		vehicle = Copter(self.handshake_to_dronology_msgs, self.state_to_dronology_msgs)
@@ -130,6 +143,7 @@ class ControlStation:
 class Copter:
 	def __init__(self, handshake_msg_queue, state_msg_queue):
 		self.vehicle = None
+		self.vid = None
 		self.handshake_to_dronology_msgs = handshake_msg_queue
 		self.state_to_dronology_msgs = state_msg_queue
 
@@ -158,6 +172,44 @@ class Copter:
 		if wait_till_armable:
 			while not vehicle.is_armable:
 				time.sleep(3)
+
+		print "Vehicle armable"
+		time.sleep(3)
+
+		self.vehicle = vehicle
+		self.vid = vehicle_id
+
+		print self.vehicle
+
+		#handshake_message = DroneHandshakeMessage(self.vid, self.vehicle)
+
+
+		#self.handshake_to_dronology_msgs.put_message(message.DroneHandshakeMessage.from_vehicle(self.vechicle, self.vid))
+
+class DroneHandshakeMessage():
+
+	def __init__(self, m_type='handshake', vid, data):
+		self.m_type = m_type
+		self.vid = vid
+		self.data = data
+
+	def from_vehicle(self, vehicle, vid, p2sac='../cfg/sac.json'):
+
+        lla = vehicle.location.global_relative_frame
+        data = {
+            'home': {'x': lla.lat,
+                     'y': lla.lon,
+                     'z': lla.alt},
+            		}
+
+		message = {
+			"type": self.m_type,
+			"uavid": self.vid,
+			"sendtimestamp": time.time(),
+			data
+		}
+        return message
+
 
 
 
