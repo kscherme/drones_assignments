@@ -1,3 +1,8 @@
+import os
+import json
+import signalutil
+import signal
+
 # Responsible for establishing a connection to Dronology GCS_Middleware
 class Connection:
     _WAITING = 1  
@@ -98,13 +103,3 @@ class Connection:
             _LOG.info('Closing socket.')
             self._sock.close()
             return
-
-class MessageQueue:
-    def __init__():
-        self.msgs = []
-
-    def put_message(msg):
-        self.msgs.append(msg)
-
-mq = MessageQueue()
-conn = Connection(mq) 
