@@ -7,6 +7,7 @@ import time
 import json
 import dronekit
 import dronekit_sitl
+from threading import Timer
 
 class MessageQueue:
     def __init__(self):
@@ -215,7 +216,7 @@ class DroneHandshakeMessage():
 		message = {
 				"type": self.m_type,
 				"uavid": self.vid,
-				"sendtimestamp": time.time(),
+				"sendtimestamp": long(time.time()),
 				"data": {
 					'yyy': "more params...",
 					"xxx": "abc",
@@ -247,7 +248,7 @@ class StateMessage():
 		message = {
 				"type": self.m_type,
 				"uavid": self.vid,
-				"sendtimestamp": time.time(),
+				"sendtimestamp": long(time.time()),
 				"data": {
 		            'location': {'x': lla.lat, 'y': lla.lon, 'z': lla.alt},
 		            'attitude': {'x': att.roll, 'y': att.pitch, 'z': att.yaw},
