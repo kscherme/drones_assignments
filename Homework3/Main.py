@@ -5,6 +5,8 @@ import socket
 import socketutils
 import time
 import json
+import dronekit
+import dronekit_sitl
 
 class MessageQueue:
     def __init__(self):
@@ -186,7 +188,7 @@ class Copter:
 
 		#self.handshake_to_dronology_msgs.put_message(message.DroneHandshakeMessage.from_vehicle(self.vechicle, self.vid))
 
-class DroneHandshakeMessage():
+'''class DroneHandshakeMessage():
 
 	def __init__(self, m_type='handshake', vid, data):
 		self.m_type = m_type
@@ -194,21 +196,20 @@ class DroneHandshakeMessage():
 		self.data = data
 
 	def from_vehicle(self, vehicle, vid, p2sac='../cfg/sac.json'):
-
-        lla = vehicle.location.global_relative_frame
-        data = {
-            'home': {'x': lla.lat,
-                     'y': lla.lon,
-                     'z': lla.alt},
-            		}
+		lla = vehicle.location.global_relative_frame
+		data = {
+		    'home': {'x': lla.lat,
+		             'y': lla.lon,
+		             'z': lla.alt},
+		    		}
 
 		message = {
-			"type": self.m_type,
-			"uavid": self.vid,
-			"sendtimestamp": time.time(),
-			data
-		}
-        return message
+				"type": self.m_type,
+				"uavid": self.vid,
+				"sendtimestamp": time.time(),
+				data
+			}
+		return message'''
 
 
 

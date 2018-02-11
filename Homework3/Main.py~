@@ -19,7 +19,7 @@ class MessageQueue:
     	messages = []
     	with self.lock:
     		while self.msgs:
-    			msgs.append(self.msgs.pop(0))
+    			messages.append(self.msgs.pop(0))
     	return messages
 
 class Runner:
@@ -71,6 +71,7 @@ class Runner:
 
 		# Register drone
 		self.drone_cfg['ardupath'] = self.global_cfg['ardupath']
+		print self.drone_cfg
 		self.from_vehicle.put_message(self.drone_cfg)
 
 
@@ -94,24 +95,42 @@ class ControlStation:
 		self.to_d_worker.start()
 
 	def from_v_work(self):
-		v_messages = self.from_v_msgs.get_messages()
+		cont = True
+		while cont:
+			v_messages = self.from_v_msgs.get_messages()
 
-		for msg in v_messages:
-			self.register_vehicle(msg)
+			for msg in v_messages:
+				print "registering vehicle"
+				self.register_vehicle(msg)
 
 	def from_d_work(self):
 		cont = True
 		while cont:
 			in_msgs = self.from_dronology_msgs.get_messages()
 			for msg in in_msgs:
+				print "from dronology:"
 				print msg
 
 	def to_d_work(self):
 		cont = True
 		while cont:
-			in_msgs = self.state_to_dronology_msgs.get_messages()
-			for msg in in_msgs:
+			messages = self.state_to_dronology_msgs.get_messages()
+			for msg in messages:
+				print "to dronology:"
 				print msg
+				success = self.conn.send(str(msg))
+				if not success:
+					self.state_to_dronology_msgs.put_message(msg)
+
+			messages = self.handshake_to_dronology_msgs.get_messages()
+			for msg in messages:
+				print "to dronology:"
+				print msg
+				success = self.conn.send(str(msg))
+				if not success:
+					self.handshake_to_dronology_msgs.put_message(msg)
+
+			time.sleep(.1)
 
 	def register_vehicle(self, v_spec):
 		vehicle = Copter(self.handshake_to_dronology_msgs, self.state_to_dronology_msgs)
@@ -124,6 +143,7 @@ class ControlStation:
 class Copter:
 	def __init__(self, handshake_msg_queue, state_msg_queue):
 		self.vehicle = None
+		self.vid = None
 		self.handshake_to_dronology_msgs = handshake_msg_queue
 		self.state_to_dronology_msgs = state_msg_queue
 
@@ -152,6 +172,43 @@ class Copter:
 		if wait_till_armable:
 			while not vehicle.is_armable:
 				time.sleep(3)
+
+		print "Vehicle armable"
+		time.sleep(3)
+
+		self.vehicle = vehicle
+		self.vid = vehicle_id
+
+		print self.vehicle
+
+		#handshake_message = DroneHandshakeMessage(self.vid, self.vehicle)
+
+
+		#self.handshake_to_dronology_msgs.put_message(message.DroneHandshakeMessage.from_vehicle(self.vechicle, self.vid))
+
+'''class DroneHandshakeMessage():
+
+	def __init__(self, m_type='handshake', vid, data):
+		self.m_type = m_type
+		self.vid = vid
+		self.data = data
+
+	def from_vehicle(self, vehicle, vid, p2sac='../cfg/sac.json'):
+		lla = vehicle.location.global_relative_frame
+		data = {
+		    'home': {'x': lla.lat,
+		             'y': lla.lon,
+		             'z': lla.alt},
+		    		}
+
+		message = {
+				"type": self.m_type,
+				"uavid": self.vid,
+				"sendtimestamp": time.time(),
+				data
+			}
+		return message'''
+
 
 
 
