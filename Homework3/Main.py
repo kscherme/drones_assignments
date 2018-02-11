@@ -186,12 +186,12 @@ class Copter:
 		handshake_message = DroneHandshakeMessage(self.vid, self.vehicle)
 
 
-		self.handshake_to_dronology_msgs.put_message(handshake_message.from_vehicle(self.vechicle, self.vid))
+		self.handshake_to_dronology_msgs.put_message(handshake_message.from_vehicle(self.vehicle, self.vid))
 		print "sent handshake"
 
 class DroneHandshakeMessage():
 
-	def __init__(self, m_type='handshake', vid, data):
+	def __init__(self, vid, data, m_type='handshake'):
 		self.m_type = m_type
 		self.vid = vid
 		self.data = data
@@ -199,8 +199,8 @@ class DroneHandshakeMessage():
 	def from_vehicle(self, vehicle, vid, p2sac='../cfg/sac.json'):
 		lla = vehicle.location.global_relative_frame
 		data = {
-			'yyy': "more params..."
-			"xxx": "abc"
+			'yyy': "more params...",
+			"xxx": "abc",
 			'home': {'x': lla.lat,
 		             'y': lla.lon,
 		             'z': lla.alt},
@@ -210,8 +210,13 @@ class DroneHandshakeMessage():
 				"type": self.m_type,
 				"uavid": self.vid,
 				"sendtimestamp": time.time(),
-				data
-			}
+				"data": {
+					'yyy': "more params...",
+					"xxx": "abc",
+					'home': {'x': lla.lat,
+		             			'y': lla.lon,
+		             			'z': lla.alt},
+		    				}}
 		return message
 
 
