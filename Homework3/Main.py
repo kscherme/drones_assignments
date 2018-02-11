@@ -3,7 +3,8 @@ import threading
 from Connection import Connection
 import socket
 import socketutils
-import util
+import time
+import json
 
 class MessageQueue:
     def __init__(self):
@@ -40,14 +41,14 @@ class Runner:
 
 		# Load global config path
 		try: 
-			with open("~/DronologyCourse/python/edu.nd.dronology.gstation1.python/cfg/global_cfg.json") as f:
+			with open("../../git/DronologyCourse/python/edu.nd.dronology.gstation1.python/cfg/global_cfg.json",'r') as f:
 				self.global_cfg = json.load(f)
 		except Exception as e:
 			print(e)
 
 		# Load drone config
 		try:
-			with open("~/DronologyCourse/python/edu.nd.dronology.gstation1.python/cfg/drone_cfgs/nd.json") as f:
+			with open("../../git/DronologyCourse/python/edu.nd.dronology.gstation1.python/cfg/drone_cfgs/nd.json",'r') as f:
 				self.drone_cfg = json.load(f)
 		except Exception as e:
 			print(e)
@@ -56,9 +57,11 @@ class Runner:
 	def start(self):
 		# Establish connection to dronology
 		self.conn = Connection(self.from_dronology)
+		print "Established connection to dronology"
 
 		# Establish control station
 		self.control_station = ControlStation(self.conn, self.from_dronology, self.handshake_to_dronology, self.state_to_dronology, self.from_vehicle)
+		print "Estalbished control station" 
 
 		# Start receiving messages
 		self.conn.start()
@@ -91,7 +94,7 @@ class ControlStation:
 		self.to_d_worker.start()
 
 	def from_v_work(self):
-		v_messages = self.v_in_msgs.get_messages()
+		v_messages = self.from_v_msgs.get_messages()
 
 		for msg in v_messages:
 			self.register_vehicle(msg)
@@ -112,6 +115,8 @@ class ControlStation:
 
 	def register_vehicle(self, v_spec):
 		vehicle = Copter(self.handshake_to_dronology_msgs, self.state_to_dronology_msgs)
+
+		print "Vehicle initialized"
 
 		vehicle.connect_vehicle(**v_spec)
 		self.drone = vehicle
@@ -155,5 +160,6 @@ if __name__ == '__main__':
 	# instance of Runner class
 	runner = Runner()
 	# start GCS
+	print "Starting runner"
 	runner.start()
 
