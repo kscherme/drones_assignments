@@ -57,6 +57,7 @@ class Connection:
                     success = True
                 except Exception as e:
                     #_LOG.warn('failed to send message! ({})'.format(e))
+                    print "failed to send message"
 			print e
 	return success
 
@@ -89,6 +90,7 @@ class Connection:
                     self.set_status(Connection._CONNECTED)  # No exception occurred, so its connected
                 except socket.error as e:
                     #_LOG.info('Socket error ({})'.format(e))
+                    print "socket error"
                     time.sleep(10.0)
             else: #_CONNECTED
                 # Receive messages
@@ -99,6 +101,7 @@ class Connection:
                     pass
                 except socket.error as e:
                     #_LOG.warn('connection interrupted! ({})'.format(e))
+                    print "connection interrupted"
                     self._sock.shutdown(socket.SHUT_RDWR)
                     self._sock.close()
                     self._sock = None
@@ -107,7 +110,9 @@ class Connection:
 
         if self._sock is not None:
             #_LOG.info('Shutting down socket.')
+            print "Shutting down socket"
             self._sock.shutdown(socket.SHUT_WR)
             #_LOG.info('Closing socket.')
+            print "Closing socket"
             self._sock.close()
             return
