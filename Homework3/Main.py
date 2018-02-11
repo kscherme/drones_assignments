@@ -3,6 +3,7 @@ import threading
 from Connection import Connection
 import socket
 import socketutils
+import util
 
 class MessageQueue:
     def __init__(self):
@@ -32,31 +33,68 @@ class Runner:
 		self.handshake_to_dronology = MessageQueue()
 		# State messages to Dronology
 		self.state_to_dronology = MessageQueue()
+		# Messages from vehicle
+		self.from_vehicle = MessageQueue()
+		self.global_cfg = None
+		self.drone_cfg = None
+
+		# Load global config path
+		try: 
+			with open("~/DronologyCourse/python/edu.nd.dronology.gstation1.python/cfg/global_cfg.json") as f:
+				self.global_cfg = json.load(f)
+		except Exception as e:
+			print(e)
+
+		# Load drone config
+		try:
+			with open("~/DronologyCourse/python/edu.nd.dronology.gstation1.python/cfg/drone_cfgs/nd.json") as f:
+				self.drone_cfg = json.load(f)
+		except Exception as e:
+			print(e)
+
 
 	def start(self):
 		# Establish connection to dronology
 		self.conn = Connection(self.from_dronology)
 
-		# Establish connection to the drones
-		self.control_station = ControlStation(self.conn, self.from_dronology, self.handshake_to_dronology, self.state_to_dronology)
+		# Establish control station
+		self.control_station = ControlStation(self.conn, self.from_dronology, self.handshake_to_dronology, self.state_to_dronology, self.from_vehicle)
 
+		# Start receiving messages
 		self.conn.start()
+		# Start Control Station
 		self.control_station.start()
+		time.sleep(1)
+
+		# Register drone
+		self.drone_cfg['ardupath'] = self.global_cfg['ardupath']
+		self.from_vehicle.put_message(self.drone_cfg)
 
 
 class ControlStation:
-	def __init__(self, connection, from_dronology_msg_queue, handshake_to_dronology_msg_queue, state_to_dronology_msg_queue):
+	def __init__(self, connection, from_dronology_msg_queue, handshake_to_dronology_msg_queue, state_to_dronology_msg_queue, new_vehicle_queue):
 		self.conn = connection
+		self.from_v_msgs = new_vehicle_queue
 		self.from_dronology_msgs = from_dronology_msg_queue
 		self.handshake_to_dronology_msgs = handshake_to_dronology_msg_queue
 		self.state_to_dronology_msgs = state_to_dronology_msg_queue
 
+		self.drone = None
+
+		self.from_v_worker = threading.Thread(target=self.from_v_work)
 		self.from_d_worker = threading.Thread(target=self.from_d_work)
 		self.to_d_worker = threading.Thread(target=self.to_d_work)
 
 	def start(self):
+		self.from_v_worker.start()
 		self.from_d_worker.start()
 		self.to_d_worker.start()
+
+	def from_v_work(self):
+		v_messages = self.v_in_msgs.get_messages()
+
+		for msg in v_messages:
+			self.register_vehicle(msg)
 
 	def from_d_work(self):
 		cont = True
@@ -72,9 +110,50 @@ class ControlStation:
 			for msg in in_msgs:
 				print msg
 
+	def register_vehicle(self, v_spec):
+		vehicle = Copter(self.handshake_to_dronology_msgs, self.state_to_dronology_msgs)
+
+		vehicle.connect_vehicle(**v_spec)
+		self.drone = vehicle
+
+class Copter:
+	def __init__(self, handshake_msg_queue, state_msg_queue):
+		self.vehicle = None
+		self.handshake_to_dronology_msgs = handshake_msg_queue
+		self.state_to_dronology_msgs = state_msg_queue
+
+	def connect_vehicle(self, vehicle_type, vehicle_id, home, ardupath):
+
+		wait_till_armable = True
+		defaults = os.path.join(ardupath, 'Tools', 'autotest', 'default_params', 'copter.parm')
+
+		if len(home) == 2:
+			home = tuple(home) + (0,0)
+		else:
+			home = tuple(home)
+
+		if vehicle_type == 'VRTL':
+
+			sitl_args = ['--home', ','.join(map(str, home))]
+			print "Trying to launch SIT instance"
+			sitl = dronekit_sitl.SITL(path=os.path.join(ardupath, 'build', 'sitl', 'bin', 'arducopter'))
+			sitl.launch(sitl_args, await_ready=True)
+			tcp, ip, port = sitl.connection_string().split(':')
+			conn_string = ':'.join([tcp, ip, port])
+			vehicle = dronekit.connect(conn_string)
+			vehicle.wait_ready(timeout=120)
+			print "Vehicle connected"
+
+		if wait_till_armable:
+			while not vehicle.is_armable:
+				time.sleep(3)
 
 
-runner = Runner()
-runner.start()
-# mq = MessageQueue()
-# conn = Connection(mq) 
+
+
+if __name__ == '__main__':
+	# instance of Runner class
+	runner = Runner()
+	# start GCS
+	runner.start()
+
