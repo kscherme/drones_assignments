@@ -95,11 +95,13 @@ class ControlStation:
 		self.to_d_worker.start()
 
 	def from_v_work(self):
-		v_messages = self.from_v_msgs.get_messages()
+		cont = True
+		while cont:
+			v_messages = self.from_v_msgs.get_messages()
 
-		for msg in v_messages:
-			print "registering vehicle"
-			self.register_vehicle(msg)
+			for msg in v_messages:
+				print "registering vehicle"
+				self.register_vehicle(msg)
 
 	def from_d_work(self):
 		cont = True
