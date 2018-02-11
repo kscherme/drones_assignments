@@ -71,6 +71,7 @@ class Runner:
 
 		# Register drone
 		self.drone_cfg['ardupath'] = self.global_cfg['ardupath']
+		print self.drone_cfg
 		self.from_vehicle.put_message(self.drone_cfg)
 
 
