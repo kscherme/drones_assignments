@@ -70,7 +70,7 @@ class ControlStation:
 		while cont:
 			in_msgs = self.state_to_dronology_msgs.get_messages()
 			for msg in in_msgs:
-				print msg
+				#_LOG.info('Message to dronology ({})'.format(msg))
 
 
 
