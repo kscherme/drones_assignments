@@ -236,14 +236,14 @@ class StateMessage():
 	def from_vehicle(self, vehicle, vid):
 		lla = vehicle.location.global_relative_frame
 		att = vehicle.attitude
-        vel = vehicle.velocity
+        	vel = vehicle.velocity
 
 
 		battery = {
 			'current': vehicle.battery.current,
-            'voltage': vehicle.battery.voltage,
-            'level': vehicle.battery.level,
-        }
+            		'voltage': vehicle.battery.voltage,
+            		'level': vehicle.battery.level,
+        		}
 
 		message = {
 				"type": self.m_type,
