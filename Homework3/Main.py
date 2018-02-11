@@ -141,7 +141,11 @@ class ControlStation:
 		print "Vehicle initialized"
 
 		vehicle.connect_vehicle(**v_spec)
-		self.drone = vehicle
+		self.drone[v_spec['vehicle_id']] = vehicle
+
+	def is_registered(self, vid):
+		return vid in self.drone 
+
 
 class Copter:
 	def __init__(self, handshake_msg_queue, state_msg_queue):
@@ -216,7 +220,7 @@ class DroneHandshakeMessage():
 		message = {
 				"type": self.m_type,
 				"uavid": str(self.vid),
-				"sendtimestamp": long(round(time.time()*1000)),
+				"sendtimestamp": round(time.time()*1000),
 				"data": {
 					'yyy': "more params...",
 					"xxx": "abc",
