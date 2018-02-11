@@ -98,6 +98,7 @@ class ControlStation:
 		v_messages = self.from_v_msgs.get_messages()
 
 		for msg in v_messages:
+			print "registering vehicle"
 			self.register_vehicle(msg)
 
 	def from_d_work(self):
@@ -105,6 +106,7 @@ class ControlStation:
 		while cont:
 			in_msgs = self.from_dronology_msgs.get_messages()
 			for msg in in_msgs:
+				print "from dronology:"
 				print msg
 
 	def to_d_work(self):
@@ -112,6 +114,7 @@ class ControlStation:
 		while cont:
 			in_msgs = self.state_to_dronology_msgs.get_messages()
 			for msg in in_msgs:
+				print "to dronology:"
 				print msg
 
 	def register_vehicle(self, v_spec):
