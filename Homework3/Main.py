@@ -148,6 +148,8 @@ class Copter:
 		self.vid = None
 		self.handshake_to_dronology_msgs = handshake_msg_queue
 		self.state_to_dronology_msgs = state_msg_queue
+		self.state_msg_timer = None
+		self.state_interval = 1
 
 	def connect_vehicle(self, vehicle_type, vehicle_id, home, ardupath):
 
@@ -188,6 +190,17 @@ class Copter:
 
 		self.handshake_to_dronology_msgs.put_message(handshake_message.from_vehicle(self.vehicle, self.vid))
 		print "sent handshake"
+		self.state_msg_timer = RepeatedTimer(self.state_interval, self.send_state_message)
+
+	def send_state_message(self):
+		message = self.gen_state_message()
+		self.state_to_dronology_msgs.put_message(message)
+
+	def gen_state_message(self):
+		state_message = StateMessage(self.vid, self.vehicle)
+
+		return self.state_message.from_vehicle(self.vehicle, self.vid)
+
 
 class DroneHandshakeMessage():
 
@@ -196,15 +209,8 @@ class DroneHandshakeMessage():
 		self.vid = vid
 		self.data = data
 
-	def from_vehicle(self, vehicle, vid, p2sac='../cfg/sac.json'):
+	def from_vehicle(self, vehicle, vid):
 		lla = vehicle.location.global_relative_frame
-		data = {
-			'yyy': "more params...",
-			"xxx": "abc",
-			'home': {'x': lla.lat,
-		             'y': lla.lon,
-		             'z': lla.alt},
-		    		}
 
 		message = {
 				"type": self.m_type,
@@ -218,6 +224,72 @@ class DroneHandshakeMessage():
 		             			'z': lla.alt},
 		    				}}
 		return message
+
+class StateMessage():
+
+	def __init__(self, vid, data, m_type='state'):
+		self.m_type = m_type
+		self.vid = vid
+		self.data = data
+
+	def from_vehicle(self, vehicle, vid):
+		lla = vehicle.location.global_relative_frame
+		att = vehicle.attitude
+        vel = vehicle.velocity
+
+
+		battery = {
+			'current': vehicle.battery.current,
+            'voltage': vehicle.battery.voltage,
+            'level': vehicle.battery.level,
+        }
+
+		message = {
+				"type": self.m_type,
+				"uavid": self.vid,
+				"sendtimestamp": time.time(),
+				"data": {
+		            'location': {'x': lla.lat, 'y': lla.lon, 'z': lla.alt},
+		            'attitude': {'x': att.roll, 'y': att.pitch, 'z': att.yaw},
+		            'velocity': {'x': vel[0], 'y': vel[1], 'z': vel[2]},
+		            'status': vehicle.system_status.state,
+		            'mode': vehicle.mode.name,
+		            'armed': vehicle.armed,
+		            'armable': vehicle.is_armable,
+		            'groundspeed': vehicle.airspeed,
+		            'batterystatus': battery
+				}}
+		return message
+
+class RepeatedTimer(object):
+    def __init__(self, interval, func, *args, **kwargs):
+        self._timer = None
+        self.interval = interval
+        self.function = func
+        self.args = args
+        self.kwargs = kwargs
+        self.is_running = False
+        self.start()
+
+    def _run(self):
+        self.is_running = False
+        self.start()
+        self.function(*self.args, **self.kwargs)
+
+    def start(self):
+        if not self.is_running:
+            self._timer = Timer(self.interval, self._run)
+            self._timer.start()
+            self.is_running = True
+
+    def set_interval(self, interval):
+        self._timer.cancel()
+        self.interval = interval
+        self.start()
+
+    def stop(self):
+        self._timer.cancel()
+        self.is_running = False
 
 
 
