@@ -200,7 +200,7 @@ class Copter:
 	def gen_state_message(self):
 		state_message = StateMessage(self.vid, self.vehicle)
 
-		return self.state_message.from_vehicle(self.vehicle, self.vid)
+		return state_message.from_vehicle(self.vehicle, self.vid)
 
 
 class DroneHandshakeMessage():
@@ -216,7 +216,7 @@ class DroneHandshakeMessage():
 		message = {
 				"type": self.m_type,
 				"uavid": self.vid,
-				"sendtimestamp": long(time.time()),
+				"sendtimestamp": long(round(time.time()*1000)),
 				"data": {
 					'yyy': "more params...",
 					"xxx": "abc",
@@ -248,7 +248,7 @@ class StateMessage():
 		message = {
 				"type": self.m_type,
 				"uavid": self.vid,
-				"sendtimestamp": long(time.time()),
+				"sendtimestamp": long(round(time.time()*1000)),
 				"data": {
 		            'location': {'x': lla.lat, 'y': lla.lon, 'z': lla.alt},
 		            'attitude': {'x': att.roll, 'y': att.pitch, 'z': att.yaw},
