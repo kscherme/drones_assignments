@@ -1,6 +1,6 @@
 import os
 import json
-import socketutils
+from boltons import socketutils
 import socket
 import threading
 import time
@@ -18,7 +18,7 @@ class Connection:
     _DEAD = -1
 
     # Port 1234 is hardcoded into Dronology???
-    def __init__(self, msg_queue, addr='', port=1234, g_id='default_groundstation'):
+    def __init__(self, msg_queue, addr='localhost', port=1234, g_id='default_groundstation'):
         self._g_id = g_id
         self._msgs = msg_queue
         self._addr = addr
@@ -57,6 +57,7 @@ class Connection:
                     success = True
                 except Exception as e:
                     #_LOG.warn('failed to send message! ({})'.format(e))
+                    print "failed to send message"
 	return success
 
     def get_messages(self, vid):
@@ -88,6 +89,8 @@ class Connection:
                     self.set_status(Connection._CONNECTED)  # No exception occurred, so its connected
                 except socket.error as e:
                     #_LOG.info('Socket error ({})'.format(e))
+                    print "socket error"
+		    print e
                     time.sleep(10.0)
             else: #_CONNECTED
                 # Receive messages
@@ -98,6 +101,7 @@ class Connection:
                     pass
                 except socket.error as e:
                     #_LOG.warn('connection interrupted! ({})'.format(e))
+                    print "connection interrupted"
                     self._sock.shutdown(socket.SHUT_RDWR)
                     self._sock.close()
                     self._sock = None
@@ -106,7 +110,9 @@ class Connection:
 
         if self._sock is not None:
             #_LOG.info('Shutting down socket.')
+            print "Shutting down socket"
             self._sock.shutdown(socket.SHUT_WR)
             #_LOG.info('Closing socket.')
+            print "Closing socket"
             self._sock.close()
             return

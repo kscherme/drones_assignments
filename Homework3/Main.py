@@ -19,7 +19,7 @@ class MessageQueue:
     	messages = []
     	with self.lock:
     		while self.msgs:
-    			msgs.append(self.msgs.pop(0))
+    			messages.append(self.msgs.pop(0))
     	return messages
 
 class Runner:

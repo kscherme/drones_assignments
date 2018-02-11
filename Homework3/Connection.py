@@ -1,6 +1,6 @@
 import os
 import json
-import socketutils
+from boltons import socketutils
 import socket
 import threading
 import time
@@ -18,7 +18,7 @@ class Connection:
     _DEAD = -1
 
     # Port 1234 is hardcoded into Dronology???
-    def __init__(self, msg_queue, addr='', port=1234, g_id='default_groundstation'):
+    def __init__(self, msg_queue, addr='localhost', port=1234, g_id='default_groundstation'):
         self._g_id = g_id
         self._msgs = msg_queue
         self._addr = addr
@@ -58,7 +58,6 @@ class Connection:
                 except Exception as e:
                     #_LOG.warn('failed to send message! ({})'.format(e))
                     print "failed to send message"
-			print e
 	return success
 
     def get_messages(self, vid):
@@ -91,12 +90,13 @@ class Connection:
                 except socket.error as e:
                     #_LOG.info('Socket error ({})'.format(e))
                     print "socket error"
+		    print e
                     time.sleep(10.0)
             else: #_CONNECTED
                 # Receive messages
                 try:
                     msg = self._sock.recv_until(os.linesep, timeout=0.1)
-                    self._msgs.put_message(cmd)  
+                    self._msgs.put_message(msg)  
                 except socket.timeout:
                     pass
                 except socket.error as e:

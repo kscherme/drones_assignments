@@ -57,11 +57,11 @@ class Runner:
 	def start(self):
 		# Establish connection to dronology
 		self.conn = Connection(self.from_dronology)
-		print "Established connection to dronology
+		print "Established connection to dronology"
 
 		# Establish control station
 		self.control_station = ControlStation(self.conn, self.from_dronology, self.handshake_to_dronology, self.state_to_dronology, self.from_vehicle)
-		print "Estalbished control station"
+		print "Estalbished control station" 
 
 		# Start receiving messages
 		self.conn.start()
