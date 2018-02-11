@@ -248,7 +248,7 @@ class StateMessage():
 		message = {
 				"type": self.m_type,
 				"uavid": str(self.vid),
-				"sendtimestamp": long(round(time.time()*1000)),
+				"sendtimestamp": round(time.time()*1000),
 				"data": {
 		            'location': {'x': lla.lat, 'y': lla.lon, 'z': lla.alt},
 		            'attitude': {'x': att.roll, 'y': att.pitch, 'z': att.yaw},
