@@ -113,7 +113,7 @@ class ControlStation:
 			for msg in in_msgs:
 				print "from dronology:"
 				print msg
-				#threading.Thread(target=self.handle_message, args=(msg,)).start()
+				threading.Thread(target=self.handle_message, args=(msg,)).start()
 
 	def to_d_work(self):
 		cont = True
@@ -142,13 +142,10 @@ class ControlStation:
 		print "Vehicle initialized"
 
 		vehicle.connect_vehicle(**v_spec)
-		# self.drone[v_spec['vehicle_id']] = vehicle
 		self.drone = vehicle
 
-	# def is_registered(self, vid):
-	# 	return vid in self.drone 
-
-	# def handle_message(self, msg):
+	def handle_message(self, msg):
+		self.drone.handle_command(msg)
 
 
 
@@ -160,6 +157,15 @@ class Copter:
 		self.state_to_dronology_msgs = state_msg_queue
 		self.state_msg_timer = None
 		self.state_interval = 1
+
+		self.cmd_handlers = {
+            command.SetMode: self.set_mode,
+            command.GotoLocation: self.goto_lla,
+            command.Takeoff: self.takeoff,
+            command.SetGroundSpeed: self.set_ground_speed,
+            command.SetHome: self.set_home_location,
+            command.SetArmed: self.set_armed
+        }
 
 	def connect_vehicle(self, vehicle_type, vehicle_id, home, ardupath):
 
@@ -210,6 +216,18 @@ class Copter:
 		state_message = StateMessage(self.vid, self.vehicle)
 
 		return state_message.from_vehicle(self.vehicle, self.vid)
+
+	def handle_command(self, cmd):
+		self.cmd_handlers[type(cmd)](cmd)
+
+	def set_mode(self, cmd):
+		mode = cmd.get_mode()
+		self.vehicle.mode = dronekit.VehicleMode(mode)
+		curr_mode = self.vehicle.mode.name
+
+		while curr_mode != mode:
+			self.vehicle.mode = dronekit.VehicleMode(mode)
+			curr_mode = self.vehicle.mode.name
 
 
 class DroneHandshakeMessage():
