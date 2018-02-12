@@ -159,14 +159,6 @@ class Copter:
 		self.state_msg_timer = None
 		self.state_interval = 1
 
-		self.cmd_handlers = {
-            command.SetMode: self.set_mode,
-            command.GotoLocation: self.goto_lla,
-            command.Takeoff: self.takeoff,
-            command.SetGroundSpeed: self.set_ground_speed,
-            command.SetHome: self.set_home_location,
-            command.SetArmed: self.set_armed
-        }
 
 	def connect_vehicle(self, vehicle_type, vehicle_id, home, ardupath):
 
@@ -219,10 +211,33 @@ class Copter:
 		return state_message.from_vehicle(self.vehicle, self.vid)
 
 	def handle_command(self, cmd):
-		self.cmd_handlers[type(cmd)](cmd)
+		command = cmd["command"]
+
+		commands = {
+			1: "gotoLocation",
+			2: "setArmed",
+			3: "setGroundspeed",
+			4: "setHome",
+			5: "setMode",
+			6: "takeoff"
+		}
+
+		if commands.get(command) == 1:
+			set_mode(cmd)
+		elif commands.get(command) == 2:
+			pass
+		elif commands.get(command) == 3:
+			pass
+		elif commands.get(command) == 4:
+			pass
+		elif commands.get(command) == 5:
+			pass
+		elif commands.get(command) == 6:
+			pass
+
 
 	def set_mode(self, cmd):
-		mode = cmd.get_mode()
+		mode = cmd["data"]["mode"]
 		self.vehicle.mode = dronekit.VehicleMode(mode)
 		curr_mode = self.vehicle.mode.name
 
