@@ -223,17 +223,17 @@ class Copter:
 		}
 
 		if commands.get(command) == 1:
-			set_mode(cmd)
+			self.goto(cmd)
 		elif commands.get(command) == 2:
-			pass
+			self.set_armed(cmd)
 		elif commands.get(command) == 3:
-			pass
+			self.set_groundspeed(cmd)
 		elif commands.get(command) == 4:
-			pass
+			self.set_home(cmd)
 		elif commands.get(command) == 5:
-			pass
+			self.set_mode(cmd)
 		elif commands.get(command) == 6:
-			pass
+			self.takeoff(cmd)
 
 
 	def set_mode(self, cmd):
@@ -244,6 +244,42 @@ class Copter:
 		while curr_mode != mode:
 			self.vehicle.mode = dronekit.VehicleMode(mode)
 			curr_mode = self.vehicle.mode.name
+
+	def goto(self,cmd):
+		self.vehicle.simple_goto(dronekit.LocationGlobalRelative(cmd["data"]["x"], cmd["data"]["y"], cmd["data"]["z"]))
+
+	def set_armed(self, cmd):
+		armed = cmd["data"]["armed"]
+		if self.vehicle.armed != armed:
+			if armed:
+				while not self.vehicle.is_armable:
+					time.sleep(2)
+
+			self.vehicle.armed = armed
+			while self.vehicle.armed !=armed:
+				self.vehicle.armed = armed
+
+	def set_groundspeed(self,cmd):
+		speed = cmd["data"]["speed"]
+
+	def set_home(self,cmd):
+		self.vehicle.simple_goto(dronekit.LocationGlobalRelative(cmd["data"]["x"], cmd["data"]["y"], cmd["data"]["z"]))
+
+	def takeoff(self,cmd):
+		alt = cmd["data"]["altitude"]
+
+		self.vehicle.mode = "GUIDED"
+		armed = True
+		if self.vehicle.armed != armed:
+			if armed:
+				while not self.vehicle.is_armable:
+					time.sleep(2)
+
+			self.vehicle.armed = armed
+			while self.vehicle.armed !=armed:
+				self.vehicle.armed = armed
+		self.vehicle.simple_takeoff(alt)
+	
 
 
 class DroneHandshakeMessage():
