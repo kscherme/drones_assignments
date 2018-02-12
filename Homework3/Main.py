@@ -145,7 +145,8 @@ class ControlStation:
 		self.drone = vehicle
 
 	def handle_message(self, msg):
-		self.drone.handle_command(msg)
+		if isinstance(self.drone, Copter):
+			self.drone.handle_command(msg)
 
 
 
