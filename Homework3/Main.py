@@ -113,6 +113,7 @@ class ControlStation:
 			for msg in in_msgs:
 				print "from dronology:"
 				print msg
+				#threading.Thread(target=self.handle_message, args=(msg,)).start()
 
 	def to_d_work(self):
 		cont = True
@@ -141,10 +142,14 @@ class ControlStation:
 		print "Vehicle initialized"
 
 		vehicle.connect_vehicle(**v_spec)
-		self.drone[v_spec['vehicle_id']] = vehicle
+		# self.drone[v_spec['vehicle_id']] = vehicle
+		self.drone = vehicle
 
-	def is_registered(self, vid):
-		return vid in self.drone 
+	# def is_registered(self, vid):
+	# 	return vid in self.drone 
+
+	# def handle_message(self, msg):
+
 
 
 class Copter:
