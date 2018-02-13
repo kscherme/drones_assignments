@@ -279,7 +279,7 @@ class Copter:
 			while self.vehicle.armed !=armed:
 				self.vehicle.armed = armed
 		self.vehicle.simple_takeoff(alt)
-	
+
 
 
 class DroneHandshakeMessage():
@@ -361,15 +361,6 @@ class RepeatedTimer(object):
             self._timer = Timer(self.interval, self._run)
             self._timer.start()
             self.is_running = True
-
-    def set_interval(self, interval):
-        self._timer.cancel()
-        self.interval = interval
-        self.start()
-
-    def stop(self):
-        self._timer.cancel()
-        self.is_running = False
 
 
 
