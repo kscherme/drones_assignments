@@ -1,3 +1,8 @@
+# Katie Schermerhorn
+# February 13, 2018
+# Ground Control System for Dronology
+
+
 import os
 import threading
 from Connection import Connection
@@ -9,20 +14,18 @@ import dronekit
 import dronekit_sitl
 from threading import Timer
 
+# Holds queues for messages
 class MessageQueue:
     def __init__(self):
-    	self.lock = threading.Lock()
         self.msgs = []
 
     def put_message(self,msg):
-    	with self.lock:
-        	self.msgs.append(msg)
+        self.msgs.append(msg)
 
     def get_messages(self):
     	messages = []
-    	with self.lock:
-    		while self.msgs:
-    			messages.append(self.msgs.pop(0))
+		while self.msgs:
+			messages.append(self.msgs.pop(0))
     	return messages
 
 class Runner:
@@ -44,14 +47,14 @@ class Runner:
 
 		# Load global config path
 		try: 
-			with open("../../git/DronologyCourse/python/edu.nd.dronology.gstation1.python/cfg/global_cfg.json",'r') as f:
+			with open("/git/DronologyCourse/python/edu.nd.dronology.gstation1.python/cfg/global_cfg.json",'r') as f:
 				self.global_cfg = json.load(f)
 		except Exception as e:
 			print(e)
 
 		# Load drone config
 		try:
-			with open("../../git/DronologyCourse/python/edu.nd.dronology.gstation1.python/cfg/drone_cfgs/nd.json",'r') as f:
+			with open("/git/DronologyCourse/python/edu.nd.dronology.gstation1.python/cfg/drone_cfgs/nd.json",'r') as f:
 				self.drone_cfg = json.load(f)
 		except Exception as e:
 			print(e)
@@ -192,14 +195,11 @@ class Copter:
 		self.vehicle = vehicle
 		self.vid = vehicle_id
 
-		print self.vehicle
-
 		handshake_message = DroneHandshakeMessage(self.vid, self.vehicle)
-
 
 		self.handshake_to_dronology_msgs.put_message(handshake_message.from_vehicle(self.vehicle, self.vid))
 		print "sent handshake"
-		self.state_msg_timer = RepeatedTimer(self.state_interval, self.send_state_message)
+		self.state_msg_timer = Timer(self.state_interval, self.send_state_message)
 
 	def send_state_message(self):
 		message = self.gen_state_message()
@@ -341,7 +341,7 @@ class StateMessage():
 				}}
 		return message
 
-class RepeatedTimer(object):
+class Timer(object):
     def __init__(self, interval, func, *args, **kwargs):
         self._timer = None
         self.interval = interval
