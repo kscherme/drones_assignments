@@ -24,6 +24,9 @@ _LOG.addHandler(fh)
 DO_CONT = False
 LOCATIONS = []
 
+routes = []
+curr_dest = []
+
 # make sure you change this so that it's correct for your system 
 ARDUPATH = os.path.join('/', 'home', 'emily', 'git', 'ardupilot')
 
@@ -67,6 +70,7 @@ def state_out_work(dronology, vehicles):
 			state = util.StateMessage.from_vehicle(v, get_vehicle_id(i))
 			state_str = str(state)
 			_LOG.info(state_str)
+			#print("Dronology Message", state_str)			
 			dronology.send(state_str)
 
 		time.sleep(1.0)
@@ -75,6 +79,27 @@ def get_vehicle_locations(vehicles):
 	for i, vehicle in enumerate(vehicles):
 		location = vehicle.location.global_relative_frame
 		LOCATIONS[i] = location
+	for i, location_i in enumerate(LOCATIONS):
+		for j, location_j in enumerate(LOCATIONS[(i+1):]):
+			if check_collision(location_i, location_j):
+				#add waypoint
+				print ("Collision Detected!")
+				avoid_collision(i, vehicles)
+def check_collision(location_i, location_j):
+	if get_distance_meters(location_i.lat, location_i.lon, location_j.lat, location_j.lon) <= 2:
+		return True
+	else:
+		return False
+
+def avoid_collision(vehicle_num, vehicles):
+	new_location = vehicles[vehicle_num].location.global_relative_frame
+	#change altidue
+	if new_location.alt + 10 <= 40:
+		new_location.alt += 10
+	else:
+		new_location.alt-=10
+	routes[vehicle_num].insert(curr_dest[vehicle_num], new_location)
+	vehicles[vehicle_num].simple_goto(new_location)
 
 def get_distance_meters(latitude1, longitude1, latitude2, longitude2):
 	lat1 = radians(latitude1)
@@ -90,11 +115,13 @@ def get_distance_meters(latitude1, longitude1, latitude2, longitude2):
 
 	R = 6373000
 	distance = R * c 
-
-	print("Result: ", distance)
+	print("distance", distance)
+	return distance
+	#print("Result: ", distance)
 
 def check_distance(vehicle_num, waypoint):
-	if get_distance_meters(LOCATIONS[vehicle_num].lat, LOCATIONS[vehicle_num].lon, waypoint[0], waypoint[1]) <= 3:
+	if get_distance_meters(LOCATIONS[vehicle_num].lat, LOCATIONS[vehicle_num].lon, waypoint[0], waypoint[1]) <= .5:
+		print ('retungin True')
 		return True
 	else:
 		return False
@@ -192,7 +219,7 @@ def main(path_to_config, ardupath=None):
 	vehicles = []
 	# A list of lists of lists (i.e., [ [ [lat0, lon0, alt0], ...] ...]
 	# These are the waypoints each drone must go to!
-	routes = []
+	
 
 	# Example:
 	# vehicle0 = vehicles[0]
@@ -249,7 +276,7 @@ def main(path_to_config, ardupath=None):
 	# Create an array called "done" that keeps track of whether the drone has reached its destination
 	done = []
 	# Create an array called "curr_dest" that keeps track of the number waypoint that the drone is currently going
-	curr_dest = []
+	
 
 	# Start up the drones
 	for vehicle in vehicles:
@@ -284,24 +311,26 @@ def main(path_to_config, ardupath=None):
 	while DO_CONT:
 		print("Sending drones to waypoints")
 		for i, vehicle in enumerate(vehicles):
+			if not done[i]:
+				way_number = curr_dest[i]
+				#if len(routes[i]) == way_number:
+				#   done[i] = True
+				#   set_mode(vehicle, "LAND")
+				print ("Waynumber: ", way_number, "curr_dest", curr_dest[i])
+				if way_number == -1:
+					ready=True
+				else:               
+					ready = check_distance(i, routes[i][way_number])
 
-			way_number = curr_dest[i]
-			#if len(routes[i]) == way_number:
-			#   done[i] = True
-			#   set_mode(vehicle, "LAND")
-
-			if way_number == -1:
-				ready=True
-			else:               
-				ready = check_distance(i, routes[i][way_number-1])
-
-			if not done[i] and ready:
-				if way_number == len(routes[i]):
-					set_mode(vehicle, "LAND")
-					done[i]=True
-					break
-				curr_dest[i] += 1               
-				vehicle.simple_goto(dronekit.LocationGlobalRelative(routes[i][way_number][0], routes[i][way_number][1], routes[i][way_number][2]))
+				if ready:
+					if way_number == len(routes[i])-1:
+						print("Landing..", way_number, curr_dest[i])
+						set_mode(vehicle, "LAND")
+						done[i]=True
+						break
+					curr_dest[i] += 1 
+					way_number=curr_dest[i]              
+					vehicle.simple_goto(dronekit.LocationGlobalRelative(routes[i][way_number][0], routes[i][way_number][1], routes[i][way_number][2]))
 
 		time.sleep(2.0)
 
