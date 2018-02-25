@@ -25,7 +25,7 @@ DO_CONT = False
 LOCATIONS = []
 
 # make sure you change this so that it's correct for your system 
-ARDUPATH = os.path.join('/', 'home', 'luke', 'git', 'ardupilot')
+ARDUPATH = os.path.join('/', 'home', 'emily', 'git', 'ardupilot')
 
 
 def load_json(path2file):
@@ -268,6 +268,8 @@ def main(path_to_config, ardupath=None):
 		#Takeoff
 		arm_simple_takeoff(vehicle, 20)
 		time.sleep(10)
+		print("Starting drone: ", vehicle)
+		done.append(False)
 		curr_dest.append(-1)
 
 		location = vehicle.location.global_relative_frame
