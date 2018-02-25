@@ -23,7 +23,7 @@ DO_CONT = False
 LOCATIONS = []
 
 # make sure you change this so that it's correct for your system 
-ARDUPATH = os.path.join('/', 'home', 'bayley', 'git', 'ardupilot')
+ARDUPATH = os.path.join('/', 'home', 'emily', 'git', 'ardupilot')
 
 
 def load_json(path2file):
@@ -71,7 +71,7 @@ def state_out_work(dronology, vehicles):
 
 def get_vehicle_locations(vehicles):
 	for i, vehicle in enumerate(vehicles):
-		location = vehicle.location.globalrelativeframe
+		location = vehicle.location.global_relative_frame
 		LOCATIONS[i] = location
 
 def get_distance_meters(latitude1, longitude1, latitude2, longitude2):
@@ -230,14 +230,14 @@ def main(path_to_config, ardupath=None):
     	#Takeoff
     	vehicle.simple_takeoff(20)
     	done.append(False)
-    	curr_dest.append(0)
+    	curr_dest.append(-1)
 
-		location = vehicle.location.globalrelativeframe
-		LOCATIONS.append(location)
+	location = vehicle.location.global_relative_frame
+	LOCATIONS.append(location)
 
 
 	# Get all drones location at every second
-    location_timer = RepeatedTimer(1, get_vehicles_locations, vehicles)
+    location_timer = RepeatedTimer(1, get_vehicle_locations, vehicles)
 
 
     # Send drones to their waypoints
@@ -245,16 +245,23 @@ def main(path_to_config, ardupath=None):
 	    for i, vehicle in enumerate(vehicles):
 
 	    	way_number = curr_dest[i]
-	    	if len(routes[i]["waypoints"]) == way_number:
-	    		done[i] = True
-	    		set_mode(vehicle, "LAND")
+	    	#if len(routes[i]) == way_number:
+	    	#	done[i] = True
+	    	#	set_mode(vehicle, "LAND")
 
-
-		    ready = check_distance(i, routes[i][way_number-1])
+		if way_number == -1:
+			ready=True
+		else:		    	
+			ready = check_distance(i, routes[i][way_number-1])
 
 	    	if not done[i] and ready:
-	    		vehicle.simple_goto(dronekit.LocationGlobalRelative(routes[i]["waypoints"][way_number][0], routes[i]["waypoints"][way_number][1], routes[i]["waypoints"][way_number][2]))
-	    		curr_dest[i] += 1
+			if way_number == len(route[i]):
+				set_mode(vehicle, "LAND")
+				done[i]=True
+				break
+	    		curr_dest[i] += 1	    		
+			vehicle.simple_goto(dronekit.LocationGlobalRelative(routes[i][way_number][0], routes[i][way_number][1], routes[i][way_number][2]))
+
 
 
 
