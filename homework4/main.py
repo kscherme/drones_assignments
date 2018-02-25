@@ -245,15 +245,15 @@ def main(path_to_config, ardupath=None):
 	    for i, vehicle in enumerate(vehicles):
 
 	    	way_number = curr_dest[i]
-	    	if len(waypoints[i]) == way_number:
+	    	if len(routes[i]["waypoints"]) == way_number:
 	    		done[i] = True
 	    		set_mode(vehicle, "LAND")
 
 
-		    ready = check_distance(i, waypoints[i][way_number-1])
+		    ready = check_distance(i, routes[i][way_number-1])
 
 	    	if not done[i] and ready:
-	    		vehicle.simple_goto(dronekit.LocationGlobalRelative(waypoints[i][way_number][0], waypoints[i][way_number][1], waypoints[i][way_number][2]))
+	    		vehicle.simple_goto(dronekit.LocationGlobalRelative(routes[i]["waypoints"][way_number][0], routes[i]["waypoints"][way_number][1], routes[i]["waypoints"][way_number][2]))
 	    		curr_dest[i] += 1
 
 
