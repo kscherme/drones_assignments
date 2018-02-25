@@ -70,67 +70,67 @@ def state_out_work(dronology, vehicles):
         time.sleep(1.0)
 
 def get_vehicle_locations(vehicles):
-	for i, vehicle in enumerate(vehicles):
-		location = vehicle.location.global_relative_frame
-		LOCATIONS[i] = location
+    for i, vehicle in enumerate(vehicles):
+        location = vehicle.location.global_relative_frame
+        LOCATIONS[i] = location
 
 def get_distance_meters(latitude1, longitude1, latitude2, longitude2):
-	lat1 = radians(latitude1)
-	lon1 = radians(longitude1)
-	lat2 = radians(latitude2)
-	lon2 = radians(longitude2)
+    lat1 = radians(latitude1)
+    lon1 = radians(longitude1)
+    lat2 = radians(latitude2)
+    lon2 = radians(longitude2)
 
-	dlon = lon2 - lon1
-	dlat = lat2 - lat1
+    dlon = lon2 - lon1
+    dlat = lat2 - lat1
 
-	a = sin(dlat/2)**2 + cos(lat1) * cos(lat2) * sin(dlon/2)**2
-	c = 2 * atan2(sqrt(a), sqrt(1-a))
+    a = sin(dlat/2)**2 + cos(lat1) * cos(lat2) * sin(dlon/2)**2
+    c = 2 * atan2(sqrt(a), sqrt(1-a))
 
-	distance = R * c * 1000
+    distance = R * c * 1000
 
-	print("Result: ", distance)
+    print("Result: ", distance)
 
 def check_distance(vehicle_num, waypoint):
-	if get_distance_meters(LOCATIONS[vehicle_num].lat, LOCATIONS[vehicle_num].lon, waypoint[0], waypoint[1]) <= 3:
-		return True
-	else:
-		return False
+    if get_distance_meters(LOCATIONS[vehicle_num].lat, LOCATIONS[vehicle_num].lon, waypoint[0], waypoint[1]) <= 3:
+        return True
+    else:
+        return False
 
 def set_mode(vehicle, mode):
-	vehicle.mode = dronekit.VehicleMode(mode)
-	_mode = vehicle.mode.name
+    vehicle.mode = dronekit.VehicleMode(mode)
+    _mode = vehicle.mode.name
 
-	while _mode != mode:
-		vehicle.mode = dronekit.VehicleMode(mode)
-		_mode = vehicle.mode.name
+    while _mode != mode:
+        vehicle.mode = dronekit.VehicleMode(mode)
+        _mode = vehicle.mode.name
 
 class RepeatedTimer(object):
-	def __init__(self, interval, function, *args, **kwargs):
-		self.timer = None
-		self.interval = interval
-		self.function = function
-		self.args = args
-		self.kwargs = kwargs
+    def __init__(self, interval, function, *args, **kwargs):
+        self.timer = None
+        self.interval = interval
+        self.function = function
+        self.args = args
+        self.kwargs = kwargs
 
-		self.active = False
+        self.active = False
 
-		self.start_timer()
+        self.start_timer()
 
-	def start_timer(self):
-		if not self.active:
-			self.next = self.interval
-			self.timer = threading.Timer(self.next - time.time(), self.run)
-			self.timer.start_timer()
-			self.active = True
+    def start_timer(self):
+        if not self.active:
+            self.next = self.interval
+            self.timer = threading.Timer(self.next - time.time(), self.run)
+            self.timer.start_timer()
+            self.active = True
 
-	def run(self):
-		self.active = False
-		self.start_timer()
-		self.function(*self.args, **self.kwargs)
+    def run(self):
+        self.active = False
+        self.start_timer()
+        self.function(*self.args, **self.kwargs)
 
-	def stop(self):
-		self.timer.cancel()
-		self.active = False
+    def stop(self):
+        self.timer.cancel()
+        self.active = False
 
 
 
@@ -208,61 +208,61 @@ def main(path_to_config, ardupath=None):
     # You're encouraged to restructure this code as necessary to fit your own design.
     # Hopefully it's flexible enough to support whatever ideas you have in mind.
 
-	# Create an array called "done" that keeps track of whether the drone has reached its destination
+    # Create an array called "done" that keeps track of whether the drone has reached its destination
     done = []
     # Create an array called "curr_dest" that keeps track of the number waypoint that the drone is currently going
     curr_dest = []
 
     # Start up the drones
     for vehicle in vehicles:
-    	# Set mode to guided
-    	set_mode(vehicle, "GUIDED")
+        # Set mode to guided
+        set_mode(vehicle, "GUIDED")
 
-    	# Arm vechicle
-    	if vehicle.armed != True:
-    		while not vehicle.is_armable:
-    			time.sleep(2)
+        # Arm vechicle
+        if vehicle.armed != True:
+            while not vehicle.is_armable:
+                time.sleep(2)
 
-    		vehicle.armed = True
-    		while vehicle.armed != True:
-    			vehicle.armed = True
+            vehicle.armed = True
+            while vehicle.armed != True:
+                vehicle.armed = True
 
-    	#Takeoff
-    	vehicle.simple_takeoff(20)
+        #Takeoff
+        vehicle.simple_takeoff(20)
         print("Starting drone: ", vehicle)
-    	done.append(False)
-    	curr_dest.append(-1)
+        done.append(False)
+        curr_dest.append(-1)
 
-    	location = vehicle.location.global_relative_frame
-    	LOCATIONS.append(location)
+        location = vehicle.location.global_relative_frame
+        LOCATIONS.append(location)
 
 
-	# Get all drones location at every second
+    # Get all drones location at every second
     location_timer = RepeatedTimer(1, get_vehicle_locations, vehicles)
 
 
     # Send drones to their waypoints
     while DO_CONT:
         print("Sending drones to waypoints")
-	    for i, vehicle in enumerate(vehicles):
+        for i, vehicle in enumerate(vehicles):
 
-	    	way_number = curr_dest[i]
-	    	#if len(routes[i]) == way_number:
-	    	#	done[i] = True
-	    	#	set_mode(vehicle, "LAND")
+            way_number = curr_dest[i]
+            #if len(routes[i]) == way_number:
+            #   done[i] = True
+            #   set_mode(vehicle, "LAND")
 
-		if way_number == -1:
-			ready=True
-		else:		    	
-			ready = check_distance(i, routes[i][way_number-1])
+        if way_number == -1:
+            ready=True
+        else:               
+            ready = check_distance(i, routes[i][way_number-1])
 
-	    	if not done[i] and ready:
-			if way_number == len(route[i]):
-				set_mode(vehicle, "LAND")
-				done[i]=True
-				break
-	    		curr_dest[i] += 1	    		
-			vehicle.simple_goto(dronekit.LocationGlobalRelative(routes[i][way_number][0], routes[i][way_number][1], routes[i][way_number][2]))
+            if not done[i] and ready:
+            if way_number == len(route[i]):
+                set_mode(vehicle, "LAND")
+                done[i]=True
+                break
+                curr_dest[i] += 1               
+            vehicle.simple_goto(dronekit.LocationGlobalRelative(routes[i][way_number][0], routes[i][way_number][1], routes[i][way_number][2]))
 
 
 
