@@ -86,7 +86,7 @@ def get_vehicle_locations(vehicles):
 				print ("Collision Detected!")
 				avoid_collision(i, vehicles)
 def check_collision(location_i, location_j):
-	if get_distance_meters(location_i.lat, location_i.lon, location_j.lat, location_j.lon) <= 2:
+	if get_distance_meters(location_i.lat, location_i.lon, location_j.lat, location_j.lon, location_i.alt, location_j.alt) <= 5:
 		return True
 	else:
 		return False
@@ -101,7 +101,7 @@ def avoid_collision(vehicle_num, vehicles):
 	routes[vehicle_num].insert(curr_dest[vehicle_num], new_location)
 	vehicles[vehicle_num].simple_goto(new_location)
 
-def get_distance_meters(latitude1, longitude1, latitude2, longitude2):
+def get_distance_meters(latitude1, longitude1, latitude2, longitude2, alt1=0, alt2=0):
 	lat1 = radians(latitude1)
 	lon1 = radians(longitude1)
 	lat2 = radians(latitude2)
@@ -109,15 +109,25 @@ def get_distance_meters(latitude1, longitude1, latitude2, longitude2):
 
 	dlon = lon2 - lon1
 	dlat = lat2 - lat1
-
+	
+	# distance between altitude
+	dalt = abs(alt1-alt2)
 	a = sin(dlat/2)**2 + cos(lat1) * cos(lat2) * sin(dlon/2)**2
 	c = 2 * atan2(sqrt(a), sqrt(1-a))
 
 	R = 6373000
-	distance = R * c 
-	print("distance", distance)
-	return distance
-	#print("Result: ", distance)
+
+	# 2D distance
+	dist_2D = R * c 
+#	print("2D distance", dist_2D)
+
+	
+	# 3D distance
+	dist_3D = sqrt(dist_2D**2 + dalt**2)
+	print("3D distance", dist_3D)
+	if dist_3D < 5:
+		print "AHHHHHHHHHHHHHHHHHHH!!!!!! DANGER!!!!"
+	return dist_3D
 
 def check_distance(vehicle_num, waypoint):
 	if get_distance_meters(LOCATIONS[vehicle_num].lat, LOCATIONS[vehicle_num].lon, waypoint[0], waypoint[1]) <= .5:
@@ -316,13 +326,14 @@ def main(path_to_config, ardupath=None):
 				#if len(routes[i]) == way_number:
 				#   done[i] = True
 				#   set_mode(vehicle, "LAND")
-				print ("Waynumber: ", way_number, "curr_dest", curr_dest[i])
+				#print ("Waynumber: ", way_number, "curr_dest", curr_dest[i])
 				if way_number == -1:
 					ready=True
 				else:               
 					ready = check_distance(i, routes[i][way_number])
 
 				if ready:
+					print way_number, len(routes[i]-1
 					if way_number == len(routes[i])-1:
 						print("Landing..", way_number, curr_dest[i])
 						set_mode(vehicle, "LAND")
