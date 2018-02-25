@@ -3,7 +3,8 @@ import dronekit
 import json
 import argparse
 import os
-import threading import Timer
+from threading import Timer
+import threading
 import time
 import signal
 import util
@@ -120,7 +121,7 @@ class RepeatedTimer(object):
 	def start_timer(self):
 		if not self.active:
 			self.timer = Timer(self.interval, self.run)
-			self.timer.start_timer()
+			self.timer.start()
 			self.active = True
 
 
@@ -258,11 +259,11 @@ def main(path_to_config, ardupath=None):
 				ready = check_distance(i, routes[i][way_number-1])
 
 			if not done[i] and ready:
-				if way_number == len(route[i]):
+				if way_number == len(routes[i]):
 					set_mode(vehicle, "LAND")
 					done[i]=True
 					break
-					curr_dest[i] += 1               
+				curr_dest[i] += 1               
 				vehicle.simple_goto(dronekit.LocationGlobalRelative(routes[i][way_number][0], routes[i][way_number][1], routes[i][way_number][2]))
 
 
