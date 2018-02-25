@@ -85,8 +85,11 @@ def get_vehicle_locations(vehicles):
 				#add waypoint
 				print ("Collision Detected!")
 				avoid_collision(i, vehicles)
+
+
 def check_collision(location_i, location_j):
 	if get_distance_meters(location_i.lat, location_i.lon, location_j.lat, location_j.lon, location_i.alt, location_j.alt) <= 5:
+#	if get_distance_meters(location_i.lat, location_i.lon, location_j.lat, location_j.lon) <= 5:
 		return True
 	else:
 		return False
@@ -98,8 +101,9 @@ def avoid_collision(vehicle_num, vehicles):
 		new_location.alt += 10
 	else:
 		new_location.alt-=10
-	routes[vehicle_num].insert(curr_dest[vehicle_num], new_location)
+	routes[vehicle_num].insert(curr_dest[vehicle_num], [new_location.lat, new_location.lon, new_location.alt])
 	vehicles[vehicle_num].simple_goto(new_location)
+	print ("avoided collision")
 
 def get_distance_meters(latitude1, longitude1, latitude2, longitude2, alt1=0, alt2=0):
 	lat1 = radians(latitude1)
@@ -114,17 +118,15 @@ def get_distance_meters(latitude1, longitude1, latitude2, longitude2, alt1=0, al
 	dalt = abs(alt1-alt2)
 	a = sin(dlat/2)**2 + cos(lat1) * cos(lat2) * sin(dlon/2)**2
 	c = 2 * atan2(sqrt(a), sqrt(1-a))
-
 	R = 6373000
 
 	# 2D distance
 	dist_2D = R * c 
-#	print("2D distance", dist_2D)
-
 	
 	# 3D distance
 	dist_3D = sqrt(dist_2D**2 + dalt**2)
 	print("3D distance", dist_3D)
+	
 	if dist_3D < 5:
 		print "AHHHHHHHHHHHHHHHHHHH!!!!!! DANGER!!!!"
 	return dist_3D
@@ -333,14 +335,16 @@ def main(path_to_config, ardupath=None):
 					ready = check_distance(i, routes[i][way_number])
 
 				if ready:
-					print way_number, len(routes[i]-1
+					print (way_number, " vs ", len(routes[i])-1)
 					if way_number == len(routes[i])-1:
 						print("Landing..", way_number, curr_dest[i])
 						set_mode(vehicle, "LAND")
+						time.sleep(10)						
 						done[i]=True
 						break
 					curr_dest[i] += 1 
-					way_number=curr_dest[i]              
+					way_number=curr_dest[i]  
+					print ("Going to ", routes[i][way_number])            
 					vehicle.simple_goto(dronekit.LocationGlobalRelative(routes[i][way_number][0], routes[i][way_number][1], routes[i][way_number][2]))
 
 		time.sleep(2.0)
