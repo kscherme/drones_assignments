@@ -229,11 +229,12 @@ def main(path_to_config, ardupath=None):
 
     	#Takeoff
     	vehicle.simple_takeoff(20)
+        print("Starting drone: ", vehicle)
     	done.append(False)
     	curr_dest.append(-1)
 
-	location = vehicle.location.global_relative_frame
-	LOCATIONS.append(location)
+    	location = vehicle.location.global_relative_frame
+    	LOCATIONS.append(location)
 
 
 	# Get all drones location at every second
@@ -242,6 +243,7 @@ def main(path_to_config, ardupath=None):
 
     # Send drones to their waypoints
     while DO_CONT:
+        print("Sending drones to waypoints")
 	    for i, vehicle in enumerate(vehicles):
 
 	    	way_number = curr_dest[i]
