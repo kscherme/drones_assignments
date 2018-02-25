@@ -85,8 +85,10 @@ def get_vehicle_locations(vehicles):
 				#add waypoint
 				print ("Collision Detected!")
 				avoid_collision(i, vehicles)
+
+
 def check_collision(location_i, location_j):
-	if get_distance_meters(location_i.lat, location_i.lon, location_j.lat, location_j.lon) <= 2:
+	if get_distance_meters(location_i.lat, location_i.lon, location_j.lat, location_j.lon) <= 5:
 		return True
 	else:
 		return False
@@ -98,8 +100,9 @@ def avoid_collision(vehicle_num, vehicles):
 		new_location.alt += 10
 	else:
 		new_location.alt-=10
-	routes[vehicle_num].insert(curr_dest[vehicle_num], new_location)
+	routes[vehicle_num].insert(curr_dest[vehicle_num], [new_location.lat, new_location.lon, new_location.alt])
 	vehicles[vehicle_num].simple_goto(new_location)
+	print ("avoided collision")
 
 def get_distance_meters(latitude1, longitude1, latitude2, longitude2):
 	lat1 = radians(latitude1)
@@ -115,7 +118,7 @@ def get_distance_meters(latitude1, longitude1, latitude2, longitude2):
 
 	R = 6373000
 	distance = R * c 
-	print("distance", distance)
+	#print("distance", distance)
 	return distance
 	#print("Result: ", distance)
 
@@ -323,13 +326,17 @@ def main(path_to_config, ardupath=None):
 					ready = check_distance(i, routes[i][way_number])
 
 				if ready:
+					print (way_number, " vs ", len(routes[i])-1)
+					
 					if way_number == len(routes[i])-1:
 						print("Landing..", way_number, curr_dest[i])
 						set_mode(vehicle, "LAND")
+						time.sleep(10)						
 						done[i]=True
 						break
 					curr_dest[i] += 1 
-					way_number=curr_dest[i]              
+					way_number=curr_dest[i]  
+					print ("Going to ", routes[i][way_number])            
 					vehicle.simple_goto(dronekit.LocationGlobalRelative(routes[i][way_number][0], routes[i][way_number][1], routes[i][way_number][2]))
 
 		time.sleep(2.0)
