@@ -151,7 +151,7 @@ def arm_and_takeoff(vehicle, aTargetAltitude):
 
     print("Arming motors")
     # Copter should arm in GUIDED mode
-    vehicle.mode = VehicleMode("GUIDED")
+    vehicle.mode = dronekit.VehicleMode("GUIDED")
     vehicle.armed = True
 
     # Confirm vehicle armed before attempting to take off
@@ -254,19 +254,19 @@ def main(path_to_config, ardupath=None):
 	# Start up the drones
 	for vehicle in vehicles:
 		# Set mode to guided
-		set_mode(vehicle, "GUIDED")
+		#set_mode(vehicle, "GUIDED")
 
 		# Arm vechicle
-		if vehicle.armed != True:
-			while not vehicle.is_armable:
-				time.sleep(2)
+		#if vehicle.armed != True:
+		#	while not vehicle.is_armable:
+		#		time.sleep(2)
 
-			vehicle.armed = True
-			while vehicle.armed != True:
-				vehicle.armed = True
+		#	vehicle.armed = True
+		#	while vehicle.armed != True:
+		#		vehicle.armed = True
 
 		#Takeoff
-		arm_simple_takeoff(vehicle, 20)
+		arm_and_takeoff(vehicle, 20)
 		time.sleep(10)
 		print("Starting drone: ", vehicle)
 		done.append(False)
