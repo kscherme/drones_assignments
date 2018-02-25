@@ -9,6 +9,7 @@ import time
 import signal
 import util
 import logging
+from math import radians, sin, cos, atan2, sqrt
 
 _LOG = logging.getLogger(__name__)
 _LOG.setLevel(logging.INFO)
@@ -87,7 +88,8 @@ def get_distance_meters(latitude1, longitude1, latitude2, longitude2):
 	a = sin(dlat/2)**2 + cos(lat1) * cos(lat2) * sin(dlon/2)**2
 	c = 2 * atan2(sqrt(a), sqrt(1-a))
 
-	distance = R * c * 1000
+	R = 6373000
+	distance = R * c 
 
 	print("Result: ", distance)
 
