@@ -23,7 +23,7 @@ DO_CONT = False
 LOCATIONS = []
 
 # make sure you change this so that it's correct for your system 
-ARDUPATH = os.path.join('/', 'home', 'emily', 'git', 'ardupilot')
+ARDUPATH = os.path.join('/', 'home', 'luke', 'git', 'ardupilot')
 
 
 def load_json(path2file):
