@@ -119,7 +119,7 @@ class RepeatedTimer(object):
 	def start_timer(self):
 		if not self.active:
 			self.next = self.interval
-			self.timer = threading.Timer(self.next - time.time(), self.run)
+			self.timer = threading.RepeatedTimer(self.next - time.time(), self.run)
 			self.timer.start_timer()
 			self.active = True
 
